@@ -11,12 +11,28 @@
 
 $(document).ready(function () {
 
-    var snapshotDiv = $('#snapshot');
-    var dataDiv = $('#data');
+    var users = {
+    	exampleUser {
+    		exampleRating: 4,
+    		exampleReview: 'this place rocked, fam!'
+    	}
 
-    var firebaseRef = firebase.database().ref('/example-ref');
+    };
+    var restaurants = {
+    	exampleName {
+    		address: 'b street',
+    		exampleReview {
+    			comments: 'this place rocked, fam!',
+    			score: 4,
+    			user: exampleUser
+    		}
+    	}
 
-    firebaseRef.on('child_added',
+    };
+
+    var database = firebase.database().ref('users');
+
+    database.on('child_added',
         function (childRefSnapshot) {
             console.log(childRefSnapshot);
             console.log(childRefSnapshot.val());
@@ -35,10 +51,10 @@ $(document).ready(function () {
         }
     );
 
-    $('#submit').on('click', function (event) {
-        var newName = $('#result').val().trim();
+    $('.button').on('click', function (event) {
+        var newName = $('#results').val().trim();
 
-        firebaseRef.push({ name: newName });
+        database.push({ name: newName });
     })
 
 });
