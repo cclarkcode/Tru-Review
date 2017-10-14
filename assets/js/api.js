@@ -1,3 +1,4 @@
+
 var googleGeoBase = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 var googleApiKey = "&key=AIzaSyDFJA-1O_YEj46FAJKk48WibUoT7YHdK1E";
 
@@ -38,3 +39,52 @@ function getGoogleCoords(request) {
         lng: request.result.geometry.location.lat
     };
 }
+
+
+
+
+function opentableapi (restaurant, zip, callback) {
+
+    //Returns through callback first restaurant in list searching by name and zip code
+
+    //Query string
+    var queryURL = "https://opentable.herokuapp.com/api/restaurants?name=" + restaurant + "&zip=" + zip;
+
+    //API call
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).done(function(response) {
+
+      //Placeholder for information
+      var info=response.restaurants[0];
+
+      //Returns data here
+      callback(info);
+    
+    });
+
+  }
+
+  function zomatoapi (restaurant, zip, callback) {
+
+    //Returns through callback first restaurant in list searching by name and zip code
+
+    //Query string
+    var queryURL = "https://opentable.herokuapp.com/api/restaurants?name=" + restaurant + "&zip=" + zip;
+
+    //API call
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).done(function(response) {
+
+      //Placeholder for information
+      var info=response.restaurants[0];
+
+      //Returns data here
+      callback(info);
+    
+    });
+
+  }

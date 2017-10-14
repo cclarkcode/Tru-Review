@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Favorite Movies</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+
+<body>
+  <h1>API stuff happening </h1>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+    //Test file for hitting the zomato API.
+
+    //Can successfully retrieve data from zomato API
+
+    //Have not determined how to use API to retreive data on a specific restaurant
+
+
+
+     function zomatoapi (restaurant, zip, callback) {
+
+   
+
+    //Query string
+    var userkey = "f73f1e3b1f28a94ae801eb97cf84f822"
+    var queryURL = "https://developers.zomato.com/api/v2.1/search?lat=32.870875&lon=-117.224589&radius=0";
+    //API call
+    $.ajax({
+      url: queryURL,
+      method: "post",
+      headers: {
+        "user-key": userkey
+      },
+      success: function(response) {
+
+
+      //Placeholder for information
+      console.log(response);
+
+      }
+
+    });
+    // // }).done(function(response) {
+
+    // //   //Placeholder for information
+    //   console.log(response);
+
+    //   //Returns data here
+    //   // callback(info);
+    
+    // });
+
+  }
+
+    function callbackfunction (info) {
+      console.log("In callback",info);
+    }
+
+
+
+  zomatoapi("Fleming's", 92122,callbackfunction);
+
+  </script>
+</body>
+
+</html>
