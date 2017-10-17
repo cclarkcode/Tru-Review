@@ -1,40 +1,62 @@
-var googleGeoBase = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-var googleApiKey = "&key=AIzaSyDFJA-1O_YEj46FAJKk48WibUoT7YHdK1E";
-
+var proxyBase = "http://www.chrisstead.com/proxy/";
 var chrisKey = "55d9430e09095b44d75ece0c0380c9daf1946332";
 
-function googleAddressQueryString(address) {
-    var queryString = googleGeoBase;
-    var formattedAddress = "";
+var gBase = "https://maps.googleapis.com/maps/api/";
+var gCoordBase = "geocode/json?";
+var gApiKey = "AIzaSyDFJA-1O_YEj46FAJKk48WibUoT7YHdK1E";
 
-    var arr = [];
-
-    Object.keys(address).forEach(function(key, i) {
-       var words = address[key].split(' ');
-       arr = arr.concat(words);
-    });
-    return queryString + arr.join('+') + googleApiKey;
-}
-
-function buildProxyUrl(remoteUrl) {
+dProxyUrl(remoteUrl) {
     return csProxyUtils.buildProxyUrl(chrisKey, remoteUrl)
 }
 
-function get(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-            var result = xhr.responseText;
-            callback(JSON.parse(result))
+var request = (options) => new Promise((resolve, reject) => {
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open(options.method, options.url, true);
+
+    xhr.onload = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            resolve(xhr.response);
+        } else {
+            reject({
+                status: this.status,
+                statusText: xhr.statusText
+            });
         }
-    }
-    xhr.open("GET", buildProxyUrl(url), true);
+    };
+
+    xhr.onerror = function(){
+        reject({
+          status: this.status,
+          statusText: xhr.statusText
+        });
+    };
+
+    if(options.headers)
+        options.forEach( key => { xhr.setRequestHeader(key, options.headers[key])});
+
     xhr.send();
+});
+
+function paramsToString(params) {
+    return Object.keys(params).map(key => ( 
+        encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+    )).join('&');
 }
 
-function getGoogleCoords(request) {
-    return {
-        lat: request.result.geometry.location.lat,
-        lng: request.result.geometry.location.lat
-    };
+var proxyOptions = (method, reqUrl) => ({
+    method: method,
+    url: buildProxyUrl(reqUrl)
+});
+
+function testResponse(response) {
+    console.log(response);
+    console.log(response.responseText);
 }
+
+var coordinates = (request) => {
+    return {
+        lat: request.results[0].geometry.location.lat,
+        lng: request.results[0].geometry.location.lng
+    };
+};
