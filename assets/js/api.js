@@ -5,7 +5,7 @@ var gBase = "https://maps.googleapis.com/maps/api/";
 var gCoordBase = "geocode/json?";
 var gApiKey = "AIzaSyDFJA-1O_YEj46FAJKk48WibUoT7YHdK1E";
 
-dProxyUrl(remoteUrl) {
+function buildProxyUrl(remoteUrl) {
     return csProxyUtils.buildProxyUrl(chrisKey, remoteUrl)
 }
 
