@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Favorite Movies</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='http://chrisstead.com/proxy/csproxy.js'></script>
+</head>
+
+<body>
+  <h1>API stuff happening </h1>
+<!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src=“http://chrisstead.com/proxy/csproxy.js“></script> -->
+
+</body>
+
+ <script type="text/javascript">
+
+  //Test file to hit the yelp authorization api to receive a token used for hitting the data api.
+
+  //Does not yet successfull generate a token
+
+   function yelptoken () {
+
+    var remoteUrl = 'https://api.yelp.com/oauth2/token';
+    var chrisKey = '55d9430e09095b44d75ece0c0380c9daf1946332';
+
+    var queryUrl = csProxyUtils.buildProxyUrl(chrisKey, remoteUrl);
+    var clientkey = '800_1iRDDSx1mkxG680z6A';
+    var secretkey = 'ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t';
+
+
+$.ajax({
+      url: queryUrl,
+      method: "post",
+      grant_type: 'client_credentials',
+      client_id: '800_1iRDDSx1mkxG680z6A',
+      client_secret: 'ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t',
+      error: function(response) {
+      console.log("Error");
+      console.log(response);
+      },
+      success: function(response) {
+
+      //Placeholder for information
+      console.log("Success");
+      console.log(response);
+
+      }
+
+    });
+    
+
+  }
+
+  yelptoken();
+
+
+  </script>
+
+</html>
