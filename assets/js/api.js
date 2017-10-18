@@ -68,16 +68,6 @@ var coordinates = (response) => {
     };
 }
 
-var ratings = (response) => {
-
-}
-
-var location = (response) => {
-    for(var i = 0; i < results.length; i++) {
-        location.name === name;
-    }
-}
-
 function opentableapi (restaurant, zip, callback) {
 
     //Returns through callback first restaurant in list searching by name and zip code
@@ -120,6 +110,13 @@ function opentableapi (restaurant, zip, callback) {
       //Returns data here
       callback(info);
     
+    });
+}
+
+function getRestaurant(response) {
+    var places = JSON.parse(response);
+    places.forEach(function(result){
+        console.log(result);
     });
 }
 
