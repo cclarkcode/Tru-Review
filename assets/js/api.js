@@ -7,48 +7,47 @@ var gPlaceBase = "place/nearbysearch/json?location="
 
 var gApiKey = "&key=AIzaSyDFJA-1O_YEj46FAJKk48WibUoT7YHdK1E";
 
-
-
 function buildProxyUrl(remoteUrl) {
-    return csProxyUtils.buildProxyUrl(chrisKey, remoteUrl)
+    return csProxyUtils.buildProxyUrl(chrisKey, remoteUrl);
 }
 
-var addressSearch = (address) => { 
+function addressSearch(address) { 
     return gBase + gCoordBase + address + gApiKey; 
 }
 
-var detailSearch = (coords, name, keyword) => { 
-    return gBase + gPlaceBase + coords.lat + "," + coords.lng + "&radius=50&keyword="+ keyword + gApiKey; 
+function detailSearch(coords, name) {
+    return gBase + gPlaceBase + coords.lat + "," + coords.lng + "&radius=50&keyword="+ name + gApiKey; 
 }
 
-var request = (options) => new Promise((resolve, reject) => {
-    let xhr = new XMLHttpRequest();
-    
-    xhr.open(options.method, options.url, true);
+function request(options) { 
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();    
+        xhr.open(options.method, options.url, true);
 
-    xhr.onload = function() {
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            resolve(xhr.response);
-        } else {
+        xhr.onload = function(){
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                resolve(xhr.response);
+            } else {
+                reject({
+                    status: this.status,
+                    statusText: xhr.statusText
+                });
+            }
+        };
+
+        xhr.onerror = function(){
             reject({
-                status: this.status,
-                statusText: xhr.statusText
+            status: this.status,
+            statusText: xhr.statusText
             });
-        }
-    };
+        };
 
-    xhr.onerror = function(){
-        reject({
-          status: this.status,
-          statusText: xhr.statusText
-        });
-    };
+        if(options.headers)
+            options.forEach( key => { xhr.setRequestHeader(key, options.headers[key])});
 
-    if(options.headers)
-        options.forEach( key => { xhr.setRequestHeader(key, options.headers[key])});
-
-    xhr.send();
-});
+        xhr.send();
+    });
+}
 
 function paramsToString(params) {
     return Object.keys(params).map(key => ( 
@@ -62,10 +61,22 @@ var proxyOptions = (method, reqUrl) => ({
 });
 
 var coordinates = (response) => {
+    var coords = JSON.parse(response);
     return {
-        lat: response.results[0].geometry.location.lat,
-        lng: response.results[0].geometry.location.lng
+        lat: coords.results[0].geometry.location.lat,
+        lng: coords.results[0].geometry.location.lng
     };
+}
+
+function getRestaurant(name, response) {
+    var places = JSON.parse(response).results;
+    for(var i = 0; i < places.length; i++) {
+        console.log(places[i].name);
+        console.log(name);
+        if(places[i].name.toUpperCase().includes(name.toUpperCase())) {
+            return places[i];
+        }
+    }
 }
 
 function opentableapi (restaurant, zip, callback) {
@@ -112,13 +123,3 @@ function opentableapi (restaurant, zip, callback) {
     
     });
 }
-
-function getRestaurant(response) {
-    var places = JSON.parse(response);
-    places.forEach(function(result){
-        console.log(result);
-    });
-}
-
-
-//  https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=32.7937417,-117.2537803&radius=500&type=restaurant&keyword=cruise&key=AIzaSyDFJA-1O_YEj46FAJKk48WibUoT7YHdK1E
