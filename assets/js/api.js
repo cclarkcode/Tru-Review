@@ -7,6 +7,8 @@ var gPlaceBase = "place/nearbysearch/json?location="
 
 var gApiKey = "&key=AIzaSyDFJA-1O_YEj46FAJKk48WibUoT7YHdK1E";
 
+var zomatoBase = "https://developers.zomato.com/api/v2.1/search?q=";
+
 function buildProxyUrl(remoteUrl) {
     return csProxyUtils.buildProxyUrl(chrisKey, remoteUrl);
 }
@@ -15,8 +17,13 @@ function addressSearch(address) {
     return gBase + gCoordBase + address + gApiKey; 
 }
 
-function detailSearch(coords, name) {
+function googleDetailSearch(coords, name) {
     return gBase + gPlaceBase + coords.lat + "," + coords.lng + "&radius=50&keyword="+ name + gApiKey; 
+}
+
+function zomatoRestaurantSearch(coords, name) {
+    var place = name.replace("+", "%20");
+    return zomatoBase + place + "&lat=" + coords.lat + "&lon=" + coords.lat + "&radius=500&sort=real_distance&order=asc";
 }
 
 function request(options) { 
@@ -41,9 +48,12 @@ function request(options) {
             statusText: xhr.statusText
             });
         };
-
-        if(options.headers)
-            options.forEach( key => { xhr.setRequestHeader(key, options.headers[key])});
+        
+        if(options.headers) {
+            Object.keys(options.headers).forEach(function(key) {
+                xhr.setRequestHeader(key, options.headers[key]);
+            });
+        }
 
         xhr.send();
     });
@@ -71,13 +81,21 @@ var coordinates = (response) => {
 function getRestaurant(name, response) {
     var places = JSON.parse(response).results;
     for(var i = 0; i < places.length; i++) {
-        console.log(places[i].name);
-        console.log(name);
         if(places[i].name.toUpperCase().includes(name.toUpperCase())) {
             return places[i];
         }
     }
 }
+
+function getRestaurantExact(name, response) {
+    var places = JSON.parse(response).results;
+    for(var i = 0; i < places.length; i++) {
+        if(places[i].name.toUpperCase() === name.toUpperCase()) {
+            return places[i];
+        }
+    }
+}
+
 
 function opentableapi (restaurant, zip, callback) {
 
