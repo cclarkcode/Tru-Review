@@ -8,7 +8,7 @@ $(document).ready(function() {
         if(!(address === null || address.match(/^ *$/) !== null)) {
             var frmtAddr = addressSearch(address);
             
-            request(proxyOptions('GET', frmtAddr)) 
+            request(proxyOptions('GET', frmtAddr))
             .then(function (coordsResponse) {
                 var coords = coordinates(JSON.parse(coordsResponse));
                 return request(proxyOptions('GET', detailSearch(coords, name)));
