@@ -1,20 +1,23 @@
 $(document).ready(function() {
 
     $("#submit-button").on("click", function() { 
-
         var name = $("#name-input").val().trim();
         var address = $("#address-input").val().trim();
         
         if(!(address === null || address.match(/^ *$/) !== null)) {
             var frmtAddr = addressSearch(address);
-            
+            var frmtName = formatInput(name);
+
             request(proxyOptions('GET', frmtAddr))
             .then(function (coordsResponse) {
-                var coords = coordinates(JSON.parse(coordsResponse));
-                return request(proxyOptions('GET', detailSearch(coords, name)));
+                var coords = coordinates(coordsResponse);
+                return request(proxyOptions('GET', detailSearch(coords, frmtName)));
             })
             .then(function (detailsResponse) {
-                console.log(JSON.parse(detailsResponse));
+                return getRestaurant(name, detailsResponse);
+            })
+            .then(function(restraurantResponse) {
+                console.log(restraurantResponse);
             });
         }
     });
