@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Favorite Movies</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='http://chrisstead.com/proxy/csproxy.js'></script>
+</head>
+
+<body>
+  <h1>Open Table API stuff happening </h1>
+<!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src=“http://chrisstead.com/proxy/csproxy.js“></script> -->
+
+</body>
+
+ <script type="text/javascript">
+
+  //Test file to hit the yelp authorization api to receive a token used for hitting the data api.
+
+  //Does not yet successfull generate a token
+
+  function opentableapi (restaurant, zip, callback) {
+
+    //Returns through callback first restaurant in list searching by name and zip code
+
+    //Query string
+    var queryURL = "https://opentable.herokuapp.com/api/restaurants?name=" + restaurant + "&zip=" + zip;
+
+    //API call
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).done(function(response) {
+
+      //Placeholder for information
+      var info=response.restaurants[0];
+
+      //Returns data here
+      callback(info);
+    
+    });
+
+  }
+
+  opentableapi("Fleming's","92122", callbackfunction)
+
+
+function callbackfunction(response) {
+
+  console.log(response);
+}
+
+  </script>
+
+</html>

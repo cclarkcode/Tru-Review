@@ -59,10 +59,10 @@
       "crossDomain": true,
       "url": csProxyUtils.buildProxyUrl(chrisKey, rawUrl),
       "method": "POST",
-      // "headers": {
-      //   // "cache-control": "no-cache",
-      //   "postman-token": "81981835-2dc1-8ded-d5f1-abf53714c923"
-      // }
+      "headers": {
+        // "cache-control": "no-cache",
+        "postman-token": "81981835-2dc1-8ded-d5f1-abf53714c923"
+      }
     }
 
     $.ajax(settings).done(function (response) {

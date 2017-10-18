@@ -26,7 +26,7 @@
 
     //Query string
     var userkey = "f73f1e3b1f28a94ae801eb97cf84f822"
-    var queryURL = "https://developers.zomato.com/api/v2.1/search?lat=32.870875&lon=-117.224589&radius=0";
+    var queryURL = "https://developers.zomato.com/api/v2.1/search?q=Pannikin&lat=32.840104&lon=-117.272240&sort=real_distance&order=asc";
     //API call
     $.ajax({
       url: queryURL,
@@ -38,7 +38,7 @@
 
 
       //Placeholder for information
-      console.log(response);
+      callback(response);
 
       }
 
@@ -56,7 +56,7 @@
   }
 
     function callbackfunction (info) {
-      console.log("In callback",info);
+      console.log("In callback",info.restaurants[0]);
     }
 
 
