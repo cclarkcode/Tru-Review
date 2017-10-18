@@ -24,32 +24,49 @@
 
    function yelptoken () {
 
-    var remoteUrl = 'https://api.yelp.com/oauth2/token';
+    // var remoteUrl = 'https://api.yelp.com/oauth2/token';
     var chrisKey = '55d9430e09095b44d75ece0c0380c9daf1946332';
 
-    var queryUrl = csProxyUtils.buildProxyUrl(chrisKey, remoteUrl);
-    var clientkey = '800_1iRDDSx1mkxG680z6A';
-    var secretkey = 'ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t';
+    // var queryUrl = csProxyUtils.buildProxyUrl(chrisKey, remoteUrl);
+    // var clientkey = '800_1iRDDSx1mkxG680z6A';
+    // var secretkey = 'ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t';
 
 
-$.ajax({
-      url: queryUrl,
-      method: "post",
-      grant_type: 'client_credentials',
-      client_id: '800_1iRDDSx1mkxG680z6A',
-      client_secret: 'ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t',
-      error: function(response) {
-      console.log("Error");
+// $.ajax({
+//       url: queryUrl,
+//       method: "post",
+//       grant_type: 'client_credentials',
+//       client_id: '800_1iRDDSx1mkxG680z6A',
+//       client_secret: 'ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t',
+//       error: function(response) {
+//       console.log("Error");
+//       console.log(response);
+//       },
+//       success: function(response) {
+
+//       //Placeholder for information
+//       console.log("Success");
+//       console.log(response);
+
+//       }
+
+//     });
+
+    var rawUrl = "https://api.yelp.com/oauth2/token%0A?grant_type=client_credentials&client_id=800_1iRDDSx1mkxG680z6A&client_secret=ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t";
+
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": csProxyUtils.buildProxyUrl(chrisKey, rawUrl),
+      "method": "POST",
+      // "headers": {
+      //   // "cache-control": "no-cache",
+      //   "postman-token": "81981835-2dc1-8ded-d5f1-abf53714c923"
+      // }
+    }
+
+    $.ajax(settings).done(function (response) {
       console.log(response);
-      },
-      success: function(response) {
-
-      //Placeholder for information
-      console.log("Success");
-      console.log(response);
-
-      }
-
     });
     
 
