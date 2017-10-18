@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <h1>API stuff happening </h1>
+  <h1>Yelp API stuff happening </h1>
 <!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src=“http://chrisstead.com/proxy/csproxy.js“></script> -->
 
@@ -22,7 +22,7 @@
 
   //Does not yet successfull generate a token
 
-   function yelptoken () {
+   function yelptoken (callback) {
 
     // var remoteUrl = 'https://api.yelp.com/oauth2/token';
     var chrisKey = '55d9430e09095b44d75ece0c0380c9daf1946332';
@@ -58,22 +58,25 @@
       "async": true,
       "crossDomain": true,
       "url": csProxyUtils.buildProxyUrl(chrisKey, rawUrl),
-      "method": "POST",
-      "headers": {
-        // "cache-control": "no-cache",
-        "postman-token": "81981835-2dc1-8ded-d5f1-abf53714c923"
-      }
+      "method": "POST"
     }
 
     $.ajax(settings).done(function (response) {
       console.log(response);
+      var newresponse = JSON.parse(response);
+      console.log(newresponse.access_token);
+      callback(newresponse.access_token);
     });
     
 
   }
 
-  yelptoken();
+  yelptoken(callbackfunction);
 
+
+
+
+ function callbackfunction
 
   </script>
 

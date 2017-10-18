@@ -10,9 +10,10 @@
 </head>
 
 <body>
-  <h1>Open Table API stuff happening </h1>
-<!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src=“http://chrisstead.com/proxy/csproxy.js“></script> -->
+  <h1>Foursquare API stuff happening </h1>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src='http://chrisstead.com/proxy/csproxy.js'></script>
+  <script src='require.js'></script>
 
 </body>
 
@@ -22,25 +23,31 @@
 
   //Does not yet successfull generate a token
 
+  var chrisKey = '55d9430e09095b44d75ece0c0380c9daf1946332';
+
   function opentableapi (restaurant, zip, callback) {
 
     //Returns through callback first restaurant in list searching by name and zip code
 
-    //Query string
-    var queryURL = "https://opentable.herokuapp.com/api/restaurants?name=" + restaurant + "&zip=" + zip;
+    const request = require('request');
 
-    //API call
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).done(function(response) {
-
-      //Placeholder for information
-      var info=response.restaurants[0];
-
-      //Returns data here
-      callback(info);
-    
+    request({
+      url:  csProxyUtils.buildProxyUrl(chrisKey, 'https://api.foursquare.com/v2/venues/explore'),
+      method: 'GET',
+      qs: {
+        client_id: 'BHPHWV3IP2GEXGKJAUQWRQBA3MRZJMUCVZHUBSRGWLHWQSAT',
+        client_secret: 'RYKN5DV53IUFZ1ZDN15NEMTPQZSL30MHTDI4FDFAWQP0VJYM',
+        ll: '40.7243,-74.0018',
+        query: 'coffee',
+        v: '20170801',
+        limit: 1
+      }
+    }, function(err, res, body) {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(body);
+      }
     });
 
   }
