@@ -12,48 +12,64 @@ var config = {
 var database = firebase.database();
 
 
-$(document).ready(function () {
+// $(document).ready(function () {
 
-    /*var users = {
-    	exampleUser: {
-    		exampleRating: 4,
-    		exampleReview: 'this place rocked, fam!'
-    	}
+//     /*var users = {
+//     	exampleUser: {
+//     		exampleRating: 4,
+//     		exampleReview: 'this place rocked, fam!'
+//     	}
 
-    };*/
-    var restaurants = {
-    	exampleName: {
-    		address: 'b street',
-    		exampleReview: {
-    			comments: 'this place rocked, fam!',
-    			score: 4,
-    			//user: users.exampleUser
-    		}
-    	}
+//     };*/
+//     // var restaurants = {
+//     // 	exampleName: {
+//     // 		address: 'b street',
+//     // 		exampleReview: {
+//     // 			comments: 'this place rocked, fam!',
+//     // 			score: 4,
+//     // 			//user: users.exampleUser
+//     // 		}
+//     // 	}
 
-    };
+//     // };
 
-    console.log(restaurants.exampleName);
-    database.ref().set({
-        restaurants: restaurants
+//     // console.log(restaurants.exampleName);
+//     // database.ref().set({
+//     //     restaurants: restaurants
+//     // })
+
+
+//     // database.ref().on("value", function(snapshot) {
+
+//     //   console.log(snapshot.val().restaurants);
+
+//     //   // Handle the errors
+//     // }, function(errorObject) {
+//     //   console.log("Errors handled: " + errorObject.code);
+//     // });
+
+
+
+
+
+// });
+
+// function fbinitial(frmtName, frmtAddr) {
+
+//     database.ref('/tru-review').once("value", function(snapshot) {
+
+//         return snapshot
+
+//     });
+
+
+// }
+
+function setup () {
+
+    database.ref('/tru-review/restaurants').set({
+        name: "Flemings"
     })
+}
 
 
-    database.ref().on("value", function(snapshot) {
-
-      console.log(snapshot.val().restaurants);
-
-      // Handle the errors
-    }, function(errorObject) {
-      console.log("Errors handled: " + errorObject.code);
-    });
-
-
-
-
-
-});
-
-//32.870875
-
-//-117.224589

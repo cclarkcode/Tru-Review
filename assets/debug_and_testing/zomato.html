@@ -22,7 +22,7 @@
 
      function zomatoapi (restaurant, zip, callback) {
 
-    var name = "The%20Local";
+    var name = "Fleming's";
     var lat = 32.793658;
     var lon = -117.253980;
 
@@ -34,7 +34,7 @@
       url: queryURL,
       method: "post",
       headers: {
-        "user-key": f73f1e3b1f28a94ae801eb97cf84f822
+        "user-key": userkey
       },
       success: function(response) {
 
