@@ -1,23 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="http://chrisstead.com/proxy/csproxy.js"></script>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+
 </head>
 <body>
-    <form role="form">
-        <div class="form-group">
-            <label for="giphy-input">Address</label>
-            <input class="form-control" id="address-input" type="text">
+    <div class="jumbotron">
+        <img id="logo" src="assets/media/trureviewlogo.png" alt="">
+        <img id="mascot" src="assets/media/mascot.gif" alt="">
+        <!--Name Search-->
+        <div id="name-search" class="search">
+            <div class="row">
+                <div class="form">
+                <input placeholder='Pick A Restaurant' type="text">
+                <button id="name-submit" class="pulse-button-hover">Go!</button>
+                </div>
+            </div>
+
         </div>
-    </form>
-    <div class="row justify-content-center align-self-center">
-        <button class="btn btn-primary" id="submit-button" type="submit">Submit</button>
+
+
+        <!--Address Search-->
+        <div id="address-search" class="search">
+            <div class="row">
+                <div class="form">
+                    <input placeholder='Enter Restaurant Address' type="text">
+                    <button id="address-submit" class="pulse-button-hover">Go!</button>
+                </div>
+            </div>
+        </div>
+
+
+
+<!--Display results here-->
+        <div id="results" class="">
+            <div class="row">
+                <div class="col-sm-2 col-sm-offset-3">
+                    <div class="thumbnail">
+                        <a href="">
+                            <img src="assets/media/mascot.gif" style="width:100%">
+                            <div class="caption">
+                                <h3></h3>
+                                <h4>
+                                <span class="label label-warning glyphicon glyphicon-usd">
+
+                                </span>
+                                    <span class="label label-danger glyphicon glyphicon-screenshot">
+
+                                </span>
+                                    <span class="label label-success glyphicon glyphicon-tower">
+
+                                </span>
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="thumbnail">
+                        <a href="">
+                            <img src="Assets/media/player/drill/drill.png" style="width:100%">
+                            <div class="caption">
+                                <h3></h3>
+                                <h4>
+                                <span class="label label-warning glyphicon glyphicon-usd">
+
+                                </span>
+                                    <span class="label label-danger glyphicon glyphicon-screenshot">
+
+                                </span>
+                                    <span class="label label-success glyphicon glyphicon-tower">
+
+                                </span>
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="thumbnail">
+                        <a href="">
+                            <img src="Assets/media/player/saw/saw.png" style="width:100%">
+                            <div class="caption">
+                                <h3></h3>
+                                <h4>
+                                <span class="label label-warning glyphicon glyphicon-usd">
+
+                                </span>
+                                    <span class="label label-danger glyphicon glyphicon-screenshot">
+
+                                </span>
+                                    <span class="label label-success glyphicon glyphicon-tower">
+
+                                </span>
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+    <!-- Optional JavaScript -->
+    <!--JQuery-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- JS Asset references-->
+    <script type="text/javascript" src="assets/js/api.js"></script>
+    <script type="text/javascript" src="assets/js/firebase.js"></script>
+    <script type="text/javascript" src="assets/js/logic.js"></script>
+    <script type="text/javascript" src="assets/js/styles.js"></script>
 </body>
-    <script src="assets/js/parse-address.min.js"></script>
-    <script src="assets/js/api.js"></script>
-    <script src="assets/js/logic.js"></script>
 </html>
+
+

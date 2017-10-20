@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
 
     $("#submit-button").on("click", function() { 
@@ -47,3 +48,4 @@ function formatInput(field) {
                 .replace('.', '+')
                 .replace(',', '+');
 }
+
