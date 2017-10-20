@@ -4,10 +4,11 @@ var chrisKey = "55d9430e09095b44d75ece0c0380c9daf1946332";
 var gBase = "https://maps.googleapis.com/maps/api/";
 var gCoordBase = "geocode/json?address=";
 var gPlaceBase = "place/nearbysearch/json?location="
-
 var gApiKey = "&key=AIzaSyDFJA-1O_YEj46FAJKk48WibUoT7YHdK1E";
 
 var zomatoBase = "https://developers.zomato.com/api/v2.1/search?q=";
+
+var yelpAuthTokenUrl = "https://api.yelp.com/oauth2/token%0A?grant_type=client_credentials&client_id=800_1iRDDSx1mkxG680z6A&client_secret=ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t";
 
 function buildProxyUrl(remoteUrl) {
     return csProxyUtils.buildProxyUrl(chrisKey, remoteUrl);
