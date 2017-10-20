@@ -2,57 +2,129 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+
 </head>
 <body>
-    
-</body>
-</html>
+    <div class="jumbotron">
+        <img id="logo" src="assets/media/trureviewlogo.png" alt="">
+        <img id="mascot" src="assets/media/mascot.gif" alt="">
+        <!--Name Search-->
+        <div id="name-search" class="search">
+            <div class="row">
+                <div class="form">
+                <input placeholder='Pick A Restaurant' type="text">
+                <button id="name-submit" class="pulse-button-hover">Go!</button>
+                </div>
+            </div>
 
-  <head>
-      <!-- Required meta tags -->
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        </div>
 
-      <!-- Bootstrap CSS -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 
-      <!-- Custom CSS -->
-      <link rel="stylesheet" href="assets/css/styles.css">
+        <!--Address Search-->
+        <div id="address-search" class="search">
+            <div class="row">
+                <div class="form">
+                    <input placeholder='Enter Restaurant Address' type="text">
+                    <button id="address-submit" class="pulse-button-hover">Go!</button>
+                </div>
+            </div>
+        </div>
 
-  </head>
-  <body>
-
-      <div class="name-search">
-          <h1>RUe RUe RUe</h1>
-
-          <!--Epic Search Box-->
-          <div class="input-group form-group">
-              <input type="text" class="form-control" placeholder="Name" aria-label="Search for...">
-              <input type="text" class="form-control" placeholder="Address" aria-label="Search for...">
-              <span class="input-group-btn">
-                        <button class="btn btn-secondary" type="button">Go!</button>
-                  </span>
-          </div>
-      </div>
 
 
 <!--Display results here-->
-<div id="results">
+        <div id="results" class="">
+            <div class="row">
+                <div class="col-sm-2 col-sm-offset-3">
+                    <div class="thumbnail">
+                        <a href="">
+                            <img src="assets/media/mascot.gif" style="width:100%">
+                            <div class="caption">
+                                <h3></h3>
+                                <h4>
+                                <span class="label label-warning glyphicon glyphicon-usd">
 
-</div>
+                                </span>
+                                    <span class="label label-danger glyphicon glyphicon-screenshot">
+
+                                </span>
+                                    <span class="label label-success glyphicon glyphicon-tower">
+
+                                </span>
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="thumbnail">
+                        <a href="">
+                            <img src="Assets/media/player/drill/drill.png" style="width:100%">
+                            <div class="caption">
+                                <h3></h3>
+                                <h4>
+                                <span class="label label-warning glyphicon glyphicon-usd">
+
+                                </span>
+                                    <span class="label label-danger glyphicon glyphicon-screenshot">
+
+                                </span>
+                                    <span class="label label-success glyphicon glyphicon-tower">
+
+                                </span>
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="thumbnail">
+                        <a href="">
+                            <img src="Assets/media/player/saw/saw.png" style="width:100%">
+                            <div class="caption">
+                                <h3></h3>
+                                <h4>
+                                <span class="label label-warning glyphicon glyphicon-usd">
+
+                                </span>
+                                    <span class="label label-danger glyphicon glyphicon-screenshot">
+
+                                </span>
+                                    <span class="label label-success glyphicon glyphicon-tower">
+
+                                </span>
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <!--JQuery-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <!-- JS Asset references-->
     <script type="text/javascript" src="assets/js/api.js"></script>
     <script type="text/javascript" src="assets/js/firebase.js"></script>
     <script type="text/javascript" src="assets/js/logic.js"></script>
-  </body>
+    <script type="text/javascript" src="assets/js/styles.js"></script>
+</body>
 </html>
 
