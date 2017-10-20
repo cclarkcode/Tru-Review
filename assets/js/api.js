@@ -2,41 +2,62 @@ var proxyBase = "http://www.chrisstead.com/proxy/";
 var chrisKey = "55d9430e09095b44d75ece0c0380c9daf1946332";
 
 var gBase = "https://maps.googleapis.com/maps/api/";
-var gCoordBase = "geocode/json?";
-var gApiKey = "AIzaSyDFJA-1O_YEj46FAJKk48WibUoT7YHdK1E";
+var gCoordBase = "geocode/json?address=";
+var gPlaceBase = "place/nearbysearch/json?location="
+
+var gApiKey = "&key=AIzaSyDFJA-1O_YEj46FAJKk48WibUoT7YHdK1E";
+
+var zomatoBase = "https://developers.zomato.com/api/v2.1/search?q=";
 
 function buildProxyUrl(remoteUrl) {
-    return csProxyUtils.buildProxyUrl(chrisKey, remoteUrl)
+    return csProxyUtils.buildProxyUrl(chrisKey, remoteUrl);
 }
 
-var request = (options) => new Promise((resolve, reject) => {
-    let xhr = new XMLHttpRequest();
-    
-    xhr.open(options.method, options.url, true);
+function addressSearch(address) { 
+    return gBase + gCoordBase + address + gApiKey; 
+}
 
-    xhr.onload = function() {
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            resolve(xhr.response);
-        } else {
+function googleDetailSearch(coords, name) {
+    return gBase + gPlaceBase + coords.lat + "," + coords.lng + "&radius=50&keyword="+ name + gApiKey; 
+}
+
+function zomatoRestaurantSearch(coords, name) {
+    var place = name.replace("+", "%20");
+    return zomatoBase + place + "&lat=" + coords.lat + "&lon=" + coords.lng + "&radius=500&sort=real_distance&order=asc";
+}
+
+function request(options) { 
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();    
+        xhr.open(options.method, options.url, true);
+
+        xhr.onload = function(){
+            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                resolve(xhr.response);
+            } else {
+                reject({
+                    status: this.status,
+                    statusText: xhr.statusText
+                });
+            }
+        };
+
+        xhr.onerror = function(){
             reject({
-                status: this.status,
-                statusText: xhr.statusText
+            status: this.status,
+            statusText: xhr.statusText
+            });
+        };
+        
+        if(options.headers) {
+            Object.keys(options.headers).forEach(function(key) {
+                xhr.setRequestHeader(key, options.headers[key]);
             });
         }
-    };
 
-    xhr.onerror = function(){
-        reject({
-          status: this.status,
-          statusText: xhr.statusText
-        });
-    };
-
-    if(options.headers)
-        options.forEach( key => { xhr.setRequestHeader(key, options.headers[key])});
-
-    xhr.send();
-});
+        xhr.send();
+    });
+}
 
 function paramsToString(params) {
     return Object.keys(params).map(key => ( 
@@ -49,19 +70,31 @@ var proxyOptions = (method, reqUrl) => ({
     url: buildProxyUrl(reqUrl)
 });
 
-function testResponse(response) {
-    console.log(response);
-    console.log(response.responseText);
-}
-
-var coordinates = (request) => {
+var coordinates = (response) => {
+    var coords = JSON.parse(response);
     return {
-        lat: request.results[0].geometry.location.lat,
-        lng: request.results[0].geometry.location.lng
+        lat: coords.results[0].geometry.location.lat,
+        lng: coords.results[0].geometry.location.lng
     };
 }
 
+function getRestaurant(name, response) {
+    var places = JSON.parse(response).results;
+    for(var i = 0; i < places.length; i++) {
+        if(places[i].name.toUpperCase().includes(name.toUpperCase())) {
+            return places[i];
+        }
+    }
+}
 
+function getRestaurantExact(name, response) {
+    var places = JSON.parse(response).results;
+    for(var i = 0; i < places.length; i++) {
+        if(places[i].name.toUpperCase() === name.toUpperCase()) {
+            return places[i];
+        }
+    }
+}
 
 
 function opentableapi (restaurant, zip, callback) {
@@ -107,5 +140,4 @@ function opentableapi (restaurant, zip, callback) {
       callback(info);
     
     });
-
-  }
+}
