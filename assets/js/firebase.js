@@ -1,5 +1,5 @@
 // Initialize Firebase
-  var config = {
+var config = {
     apiKey: "AIzaSyBYfwqO-6fi-UxsGUo-YJYvur8cI5SY78E",
     authDomain: "tru-review.firebaseapp.com",
     databaseURL: "https://tru-review.firebaseio.com",
@@ -9,53 +9,48 @@
   };
   firebase.initializeApp(config);
 
+var database = firebase.database();
+
+
 $(document).ready(function () {
 
-    var users = {
-    	exampleUser {
+    /*var users = {
+    	exampleUser: {
     		exampleRating: 4,
     		exampleReview: 'this place rocked, fam!'
     	}
 
-    };
+    };*/
     var restaurants = {
-    	exampleName {
+    	exampleName: {
     		address: 'b street',
-    		exampleReview {
+    		exampleReview: {
     			comments: 'this place rocked, fam!',
     			score: 4,
-    			user: exampleUser
+    			//user: users.exampleUser
     		}
     	}
 
     };
 
-    var database = firebase.database().ref('users');
-
-    database.on('child_added',
-        function (childRefSnapshot) {
-            console.log(childRefSnapshot);
-            console.log(childRefSnapshot.val());
-            
-            var dataObject = childRefSnapshot.val();
-            
-            var dataAtDataKey = dataObject.name;
-            
-            var stringifiedObject = JSON.stringify(dataObject, null, 4);
-
-            snapshotDiv.html('<pre>' + stringifiedObject + '</pre>');
-
-            // The dataKey reference came from our object definition.
-            // dataDiv is defined as a variable above.
-            dataDiv.text(dataAtDataKey);
-        }
-    );
-
-    $('.button').on('click', function (event) {
-        var newName = $('#results').val().trim();
-
-        database.push({ name: newName });
+    console.log(restaurants.exampleName);
+    database.ref().set({
+        restaurants: restaurants
     })
+
+
+    database.ref().on("value", function(snapshot) {
+
+      console.log(snapshot.val().restaurants);
+
+      // Handle the errors
+    }, function(errorObject) {
+      console.log("Errors handled: " + errorObject.code);
+    });
+
+
+
+
 
 });
 
