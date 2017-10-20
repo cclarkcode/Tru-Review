@@ -23,7 +23,7 @@ function googleDetailSearch(coords, name) {
 
 function zomatoRestaurantSearch(coords, name) {
     var place = name.replace("+", "%20");
-    return zomatoBase + place + "&lat=" + coords.lat + "&lon=" + coords.lat + "&radius=500&sort=real_distance&order=asc";
+    return zomatoBase + place + "&lat=" + coords.lat + "&lon=" + coords.lng + "&radius=500&sort=real_distance&order=asc";
 }
 
 function request(options) { 

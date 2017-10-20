@@ -25,40 +25,44 @@
 
   var chrisKey = '55d9430e09095b44d75ece0c0380c9daf1946332';
 
-  function opentableapi (restaurant, zip, callback) {
+  var url = csProxyUtils.buildProxyUrl(chrisKey, 'https://api.foursquare.com/v2/venues/explore');
 
-    //Returns through callback first restaurant in list searching by name and zip code
+  console.log(url);
 
-    const request = require('request');
+//   function opentableapi (restaurant, zip, callback) {
 
-    request({
-      url:  csProxyUtils.buildProxyUrl(chrisKey, 'https://api.foursquare.com/v2/venues/explore'),
-      method: 'GET',
-      qs: {
-        client_id: 'BHPHWV3IP2GEXGKJAUQWRQBA3MRZJMUCVZHUBSRGWLHWQSAT',
-        client_secret: 'RYKN5DV53IUFZ1ZDN15NEMTPQZSL30MHTDI4FDFAWQP0VJYM',
-        ll: '40.7243,-74.0018',
-        query: 'coffee',
-        v: '20170801',
-        limit: 1
-      }
-    }, function(err, res, body) {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log(body);
-      }
-    });
+//     //Returns through callback first restaurant in list searching by name and zip code
 
-  }
+//     const request = require('request');
 
-  opentableapi("Fleming's","92122", callbackfunction)
+//     request({
+//       url:  csProxyUtils.buildProxyUrl(chrisKey, 'https://api.foursquare.com/v2/venues/explore'),
+//       method: 'GET',
+//       qs: {
+//         client_id: 'BHPHWV3IP2GEXGKJAUQWRQBA3MRZJMUCVZHUBSRGWLHWQSAT',
+//         client_secret: 'RYKN5DV53IUFZ1ZDN15NEMTPQZSL30MHTDI4FDFAWQP0VJYM',
+//         ll: '40.7243,-74.0018',
+//         query: 'coffee',
+//         v: '20170801',
+//         limit: 1
+//       }
+//     }, function(err, res, body) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         console.log(body);
+//       }
+//     });
+
+//   }
+
+//   opentableapi("Fleming's","92122", callbackfunction)
 
 
-function callbackfunction(response) {
+// function callbackfunction(response) {
 
-  console.log(response);
-}
+//   console.log(response);
+// }
 
   </script>
 
