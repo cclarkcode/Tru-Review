@@ -1,11 +1,12 @@
 var name;
 var address;
+var dbAddr;
 var yelptoken = "Bearer dlVH8b6SrxR8hB3Qt-kp8oNeaDzXSYP5O_pG7Gy6Sm5E7PxMa_6wbrpY88thyflQ3KVJ8xg6eAtGO_oEYRtC8c9oXBTVsCSbJGzV65ohKSdKhEIDxqvvZxGP5X_lWXYx";
 
 
 $(document).ready(function() {
 
-    // run();
+    run();
 
 
     //Store name globally to use after 2nd of 2 step search
@@ -21,7 +22,7 @@ $(document).ready(function() {
 
         console.log(name);
 
-        var address = $("#address-input").val().trim();
+        address = $("#address-input").val().trim();
 
         console.log(address);
         
@@ -29,12 +30,14 @@ $(document).ready(function() {
             
             var frmtAddr = addressSearch(address);
             var frmtName = formatInput(name);
+            dbAddr = formatInput(address);
 
             //Make API calls
             yelpAPIcall(frmtName,frmtAddr);           
             zomatoAPIcall(frmtName,frmtAddr);
             googleAPIcall(frmtName,frmtAddr);
-
+            dbfind(frmtName,dbAddr,callbacklog);
+            dbratingaverage(dbAddr);
         }
     });
 });
@@ -84,6 +87,7 @@ function googleAPIcall (frmtName,frmtAddr) {
 
 }
 
+//Function to make Yelp API call
 function yelpAPIcall(frmtName,frmtAddr) {
 
 var yelptoken = "Bearer dlVH8b6SrxR8hB3Qt-kp8oNeaDzXSYP5O_pG7Gy6Sm5E7PxMa_6wbrpY88thyflQ3KVJ8xg6eAtGO_oEYRtC8c9oXBTVsCSbJGzV65ohKSdKhEIDxqvvZxGP5X_lWXYx";
@@ -108,10 +112,13 @@ var chriskey = "55d9430e09095b44d75ece0c0380c9daf1946332";
 
 //Function to remove or replace special characters which will cause issues in url string
 function formatInput(field) {
-    return field.replace(' ', '+')
+    return field.replace(/ /g, '+')
                 .replace('.', '+')
-                .replace(',', '+')
-                .replace("'", "");
+                .replace(/,/g, '+')
+                .replace("'", "")
+                .replace('#', "")
+                .replace('-', "+")
+                .split('++').join('+');
 }
 
 function formatReview(review) {
@@ -121,18 +128,42 @@ function formatReview(review) {
 //Test function that runs page logic without input
 function run () {
 
-            //Test Case 1
-            // var frmtAddr = addressSearch("809 Thomas Ave, San Diego, CA 92109");
-            // var frmtName = formatInput("The Local");
+            // //Test Case 1
+            address = "809 Thomas Ave, San Diego, CA 92109"
+            var frmtAddr = addressSearch(address);
+            var frmtName = formatInput("The Local");
+            dbAddr = formatInput(address);
 
-            //Test Case 2
-            var frmtAddr = addressSearch("8970 University Center Ln, San Diego, CA 92122");
-            var frmtName = formatInput("Fleming's");
+            // Test Case 2
+            // address ="8970 University Center Ln, San Diego, CA 92122";
+            // var frmtAddr = addressSearch(address);
+            // var frmtName = formatInput("Fleming's");
+            // dbAddr = formatInput(address);
             
 
             //Make API calls
             yelpAPIcall(frmtName,frmtAddr);           
             zomatoAPIcall(frmtName,frmtAddr);
             googleAPIcall(frmtName,frmtAddr);
-            firebasecall(frmtName, frmtAddr);
+            dbfind(frmtName,dbAddr,callbacklog);
+            dbratingaverage(dbAddr);
 }
+
+function callbacklog(snapshot) {
+
+    console.log(snapshot);
+}
+
+$("#add-review").on("click", function() {
+
+    var names = ["John", "Lindsay", "Jim", "Cade", "Jane"];
+    var comments = ["This place sucks", "Nice Place!", "Good food, Bad service", "The best in the world", "Meh"];
+
+    var name =names[Math.floor(Math.random()*5)];
+    var comment = comments[Math.floor(Math.random()*5)];
+    var rating = Math.floor(Math.random()*5)+1;
+
+    console.log(dbAddr);
+    reviewadd(dbAddr,name,comment,rating,dbratingaverage);
+
+});
