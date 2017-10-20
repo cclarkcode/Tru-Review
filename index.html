@@ -17,13 +17,21 @@
 <body>
     <div class="jumbotron">
         <img id="logo" src="assets/media/trureviewlogo.png" alt="">
-        <img id="mascot" src="assets/media/mascot.gif" alt="">
+        <br><br><br>
+        <div class="row">
+            <img id="mascot" src="assets/media/mascot.gif" alt="">
+        </div>
+
         <!--Name Search-->
-        <div id="name-search" class="search">
-            <div class="row">
+        <div class="search">
+            <div class="input-group">
                 <div class="form">
-                <input placeholder='Pick A Restaurant' type="text">
-                <button id="name-submit" class="pulse-button-hover">Go!</button>
+                <input id="name-search" placeholder='Name A Restaurant!' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Name A Restuarant!'" type="text">
+                <input id="address-search" placeholder='Restaurant Address' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Restuarant Address'" type="text">
+                    <span class="input-btn-group">
+                        <button id="name-submit" class="pulse-button-hover">Let's Go!</button>
+                        <button id="address-submit" class="pulse-button-hover">Check It</button>
+                    </span>
                 </div>
             </div>
 
@@ -31,37 +39,43 @@
 
 
         <!--Address Search-->
-        <div id="address-search" class="search">
-            <div class="row">
-                <div class="form">
-                    <input placeholder='Enter Restaurant Address' type="text">
-                    <button id="address-submit" class="pulse-button-hover">Go!</button>
-                </div>
-            </div>
-        </div>
+        <!--<div  class="search">-->
+            <!--<div class="input-group">-->
+                <!--<div class="form">-->
+                   <!---->
+
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
 
 
 <!--Display results here-->
-        <div id="results" class="">
+        <div id="results" class="container">
+                <div class="rating rating-trureview"><!--
+            --><a href="#5" title="Give 5 stars">★</a><!--
+            --><a href="#4" title="Give 4 stars">★</a><!--
+            --><a href="#3" title="Give 3 stars">★</a><!--
+            --><a href="#2" title="Give 2 stars">★</a><!--
+            --><a href="#1" title="Give 1 star">★</a>
+            </div>
+
+            <br><br>
+
             <div class="row">
-                <div class="col-sm-2 col-sm-offset-3">
+                <div class="col-sm-2 col-sm-offset-2">
                     <div class="thumbnail">
                         <a href="">
-                            <img src="assets/media/mascot.gif" style="width:100%">
+                            <img src="assets/media/google-places-img.png" style="width:100%">
                             <div class="caption">
-                                <h3></h3>
-                                <h4>
-                                <span class="label label-warning glyphicon glyphicon-usd">
-
-                                </span>
-                                    <span class="label label-danger glyphicon glyphicon-screenshot">
-
-                                </span>
-                                    <span class="label label-success glyphicon glyphicon-tower">
-
-                                </span>
-                                </h4>
+                                <h3>Google Places</h3>
+                                <div class="rating rating-google"><!--
+                                --><a href="#5" title="Give 5 stars">★</a><!--
+                                --><a href="#4" title="Give 4 stars">★</a><!--
+                                --><a href="#3" title="Give 3 stars">★</a><!--
+                                --><a href="#2" title="Give 2 stars">★</a><!--
+                                --><a href="#1" title="Give 1 star">★</a>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -69,20 +83,16 @@
                 <div class="col-sm-2">
                     <div class="thumbnail">
                         <a href="">
-                            <img src="Assets/media/player/drill/drill.png" style="width:100%">
+                            <img src="assets/media/yelp-img.jpg" style="width:100%">
                             <div class="caption">
-                                <h3></h3>
-                                <h4>
-                                <span class="label label-warning glyphicon glyphicon-usd">
-
-                                </span>
-                                    <span class="label label-danger glyphicon glyphicon-screenshot">
-
-                                </span>
-                                    <span class="label label-success glyphicon glyphicon-tower">
-
-                                </span>
-                                </h4>
+                                <h3>Zomato</h3>
+                                <div class="rating rating-zomato"><!--
+                                --><a href="" title="Give 5 stars">★</a><!--
+                                --><a href="" title="Give 4 stars">★</a><!--
+                                --><a href="" title="Give 3 stars">★</a><!--
+                                --><a href="" title="Give 2 stars">★</a><!--
+                                --><a href="" title="Give 1 star">★</a>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -90,20 +100,16 @@
                 <div class="col-sm-2">
                     <div class="thumbnail">
                         <a href="">
-                            <img src="Assets/media/player/saw/saw.png" style="width:100%">
+                            <img src="assets/media/zomato-img.png" style="width:100%">
                             <div class="caption">
-                                <h3></h3>
-                                <h4>
-                                <span class="label label-warning glyphicon glyphicon-usd">
-
-                                </span>
-                                    <span class="label label-danger glyphicon glyphicon-screenshot">
-
-                                </span>
-                                    <span class="label label-success glyphicon glyphicon-tower">
-
-                                </span>
-                                </h4>
+                                <h3>Yelp</h3>
+                                <div class="rating rating-yelp"><!--
+                                --><a href="" title="Give 5 stars">★</a><!--
+                                --><a href="" title="Give 4 stars">★</a><!--
+                                --><a href="" title="Give 3 stars">★</a><!--
+                                --><a href="" title="Give 2 stars">★</a><!--
+                                --><a href="" title="Give 1 star">★</a>
+                                </div>
                             </div>
                         </a>
                     </div>

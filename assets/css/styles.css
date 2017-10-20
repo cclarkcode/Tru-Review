@@ -1,8 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
+
+
 div.search {
-    position: inherit;
-    margin: 5% 25% 5% 25%;
+    margin: 5% 30% 5% 30%;
     text-align: center;
+    border: none;
+    position: relative;
+
 }
 
 #name-search {
@@ -22,7 +26,7 @@ body {
 }
 
 div.jumbotron {
-    margin: 5% 20% 5% 20%;
+    margin: 5% 12% 5% 12%;
     background: white;
     border-color: white;
     box-shadow: 0px 0px 50px grey;
@@ -48,6 +52,10 @@ div.form {
     width: 340px;
 }
 
+input:focus {
+    outline: none;
+}
+
 input[type='text'] {
     background-color: white;
     -webkit-border-radius: 45px;
@@ -66,12 +74,19 @@ input[type='text'][placeholder] {
     color: #656d79;
     font-size: 15px;
     font-weight: 500;
+    text-align: center;
 }
+
+div.input-btn-group {
+}
+
 
 /*BUTTON*/
 /* Button resets and style */
 button {
+    /*float: right;*/
     margin-left: 45%;
+    margin-bottom: 10px;
     font-family: "Montserrat";
     font-size: 20px;
     color: #ffffff;
@@ -79,6 +94,10 @@ button {
     border-radius: 100px;
     padding: 15px 20px;
     border: 0px solid #000;
+}
+
+#address-submit {
+    display: none;
 }
 
 /* Initiate Auto-Pulse animations */
@@ -100,10 +119,10 @@ button:focus {
 /* Declate color shifting animation */
 @keyframes colorShift {
     0%, 100% {
-        background: #0045e6;
+        background: #fb3e3e;
     }
     33% {
-        background: #fb3e3e;
+        background: blue;
     }
     66%{
         background: #0dcc00;
@@ -133,15 +152,98 @@ button:focus {
     }
 }
 
+div.row {
+    position: relative;
+}
 
 
 /*RESULTS*/
+div.col-sm-2 {
+    margin: 5%;
+}
+
 div.thumbnail {
     background-color: rgba(350, 200, 210, 0.8);
     border-color: grey;
+    height: 300px;
+    width: 230px;
+    margin: 10%;
 }
 
 div.thumbnail:hover {
     border-color: white;
     box-shadow: 0px 0px 50px grey;
+}
+
+div.caption {
+    position: absolute;
+    margin-top: -10px;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    background-color: dimgrey;
+}
+
+/*
+ * Rating styles
+ */
+
+/*.rating {*/
+    /*width: 226px;*/
+    /*margin: 0 auto 1em;*/
+    /*font-size: 45px;*/
+    /*overflow:hidden;*/
+/*}*/
+
+.rating-trureview {
+    width: 226px;
+    margin: 0 auto 1em;
+    font-size: 45px;
+    overflow:hidden;
+}
+
+.rating-zomato {
+    width: 200px;
+    margin: 0 auto 1em;
+    font-size: 25px;
+    overflow:hidden;
+}
+
+.rating-google {
+    width: 200px;
+    margin: 0 auto 1em;
+    font-size: 25px;
+    overflow:hidden;
+}
+
+.rating-yelp {
+    width: 200px;
+    margin: 0 auto 1em;
+    font-size: 25px;
+    overflow:hidden;
+}
+
+
+.rating a {
+    float:right;
+    color: #aaa;
+    text-decoration: none;
+    -webkit-transition: color .4s;
+    -moz-transition: color .4s;
+    -o-transition: color .4s;
+    transition: color .4s;
+}
+.rating a:hover,
+.rating a:hover ~ a,
+.rating a:focus,
+.rating a:focus ~ a		{
+    color: orange;
+    cursor: pointer;
+}
+/*element1~element2	p ~ ul	Selects every <ul> element that are preceded by a <p> element*/
+.rating {
+    direction: rtl;
+}
+.rating a {
+    float:none;
 }
