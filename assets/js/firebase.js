@@ -141,7 +141,7 @@ function setup () {
    
 }
 
-function reviewadd(addr, nam, com, rat, callback) {
+function reviewadd(addr, nam, com, rat, ratingsarray,callback) {
 
     database.ref('/restaurants').once("value", function(snapshot){
 
@@ -164,8 +164,9 @@ function reviewadd(addr, nam, com, rat, callback) {
             Rating: rat
         });
 
-
-        callback(addr);  
+        ratingsarray.splice(3,1);
+        console.log(ratingsarray);
+        callback(addr,name,ratingsarray,runwhendone);  
 
 
     });      
@@ -189,35 +190,25 @@ function findid(addr, snapshot) {
 
 }
 
-function dbrating(name,addr,ratingsarray,callback) {
+function dbrating(snapshot) {
 
-    database.ref('/restaurants').once("value", function(snapshot) {
-
-        var snap = snapshot.val();
-        var id = findid(addr,snap);
+           
+        const exists=snapshot.reviews;
         var totalstars = 0;
-
-        const exists=snap[id].reviews;
-
         if(exists) {
-            for (var i = 0; i < snap[id].reviews.length; i++) {
-                totalstars += snap[id].reviews[i].Rating;
+
+            for (var i = 0; i < snapshot.reviews.length; i++) {
+                totalstars += snapshot.reviews[i].Rating;
             }
-            console.log(totalstars);
-            console.log(snap[id].reviews.length);
-            console.log(totalstars/(snap[id].reviews.length));
+            
+            return (totalstars/(snapshot.reviews.length)).toFixed(1);
         }
         else {
             console.log("No ratings")
+            return 0;
         }
 
-        callback(ratingsarray);
         
-
-
-    });
-
-
 }
 
 
