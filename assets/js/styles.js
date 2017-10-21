@@ -48,6 +48,7 @@ function colorStars(rating, starArray) {
 
 // Kick off when API call is finished
 function searchComplete(yelp,zomato,google,internal) {
+    $('#message').fadeOut(300);
     $('#results').delay(400).fadeIn(600);
     $('#logo').css({
         'width': '30%',
@@ -60,10 +61,9 @@ function searchComplete(yelp,zomato,google,internal) {
         'margin-left': '42%'
     });
     // Add numeric labels with ratings
-
     var combinedRating = getAverageRating(internal,google,zomato,yelp);
 
-    $('#message').text(combinedRating.toString());
+    $('#trureviewRating').text(combinedRating.toString());
     
     if(google > 0) {
         $('#google-rating').text(google.toString());
