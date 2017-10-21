@@ -48,7 +48,7 @@ function colorStars(rating, starArray) {
 
 // Kick off when API call is finished
 function searchComplete(yelp,zomato,google,internal) {
-    $('#name').text(name);
+    $('#message').text(name);
     $('#results').delay(400).fadeIn(600);
     $('#logo').css({
         'width': '30%',
@@ -56,9 +56,9 @@ function searchComplete(yelp,zomato,google,internal) {
         'margin-left': '35%'
     });
     $('#mascot').css({
-        'width': '15%',
-        'height': '15%',
-        'margin-left': '42%'
+        'width': '10%',
+        'height': '10%',
+        'margin-left': '48%'
     }).attr('src', 'assets/media/mascot.gif');
     // Add numeric labels with ratings
     var combinedRating = getAverageRating(internal,google,zomato,yelp);
