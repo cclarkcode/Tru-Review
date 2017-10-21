@@ -11,7 +11,7 @@ $(document).ready(function() {
     //Store name globally to use after 2nd of 2 step search
     $("#name-submit").on("click", function() { 
      
-        name = $("#name-input").val().trim();
+        name = $("#name-search").val().trim();
         console.log(name)
 
     });
@@ -21,7 +21,7 @@ $(document).ready(function() {
 
         console.log(name);
 
-        var address = $("#address-input").val().trim();
+        var address = $("#address-search").val().trim();
 
         console.log(address);
         

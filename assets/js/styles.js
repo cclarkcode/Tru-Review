@@ -4,12 +4,12 @@ var address = '';
 
 //Individual ratings
 var trureviewRating = 0;
-var googleRating = 0;
-var zomatoRating = 0;
-var yelpRating = 0;
+var googleRating = 4;
+var zomatoRating = 5;
+var yelpRating = 3;
 
-//Combined average rating
-var averageRating = 0;
+//Combined rating
+var combinedRating = 4;
 
 // Nice to have
 var latCoordinates = '';
@@ -31,10 +31,43 @@ function getAverageRating(trureviewRating, googleRating, zomatoRating, yelpRatin
     }
 }
 
+// Takes array of st
+function colorStars(rating, starArray) {
+    for (var i = 0; i < rating; i++) {
+        $(starArray[i]).css({
+            'color' : 'orange',
+            'cursor' : 'pointer'
+        });
+    }
+}
 
 
+// Kick off when API call is finished
+function searchComplete() {
+    $('#results').delay(400).fadeIn(600);
+    $('#logo').css({
+        'width': '40%',
+        'height': '40%',
+        'margin-left': '30%'
+    });
+    $('#mascot').css({
+        'width': '20%',
+        'height': '20%',
+        'margin-left': '40%'
+    });
 
+    //Add ratings
+    colorStars(combinedRating, trureviewStars);
+    colorStars(googleRating, googleStars);
+    colorStars(zomatoRating, zomatoStars);
+    colorStars(yelpRating, yelpStars);
 
+}
+
+var googleStars = ['#g1', '#g2', '#g3', '#g4', '#g5'];
+var trureviewStars = ['#t1', '#t2', '#t3', '#t4', '#t5'];
+var zomatoStars = ['#z1', '#z2', '#z3', '#z4', '#z5'];
+var yelpStars = ['#y1', '#y2', '#y3', '#y4', '#y5'];
 // JavaScript function that wraps everything
 $(document).ready(function() {
     $("#name-submit").click(function () {
@@ -44,6 +77,8 @@ $(document).ready(function() {
 
 
     });
+
+
     $("#address-submit").click(function () {
         //Get values from text fields
         name = $('#name-search').val();
@@ -55,17 +90,7 @@ $(document).ready(function() {
         $('#name-search').fadeOut(500);
         $('#name-submit').fadeOut(500);
         $('#address-submit').fadeOut(500);
-        $('#results').delay(400).fadeIn(600);
-        $('#logo').css({
-            'width': '40%',
-            'height': '40%',
-            'margin-left': '30%'
-        });
-        $('#mascot').css({
-            'width': '20%',
-            'height': '20%',
-            'margin-left': '40%'
-        });
+        searchComplete()
 
     });
 });
