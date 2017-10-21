@@ -84,10 +84,13 @@ var proxyOptions = (method, reqUrl) => ({
 
 var coordinates = (response) => {
     var coords = JSON.parse(response);
-    return {
-        lat: coords.results[0].geometry.location.lat,
-        lng: coords.results[0].geometry.location.lng
-    };
+    if (coords.status !== "ZERO_RESULTS") { 
+        return {
+            lat: coords.results[0].geometry.location.lat,
+            lng: coords.results[0].geometry.location.lng
+        };
+    }
+    else errorfunction();
 }
 
 function getRestaurant(name, response) {
