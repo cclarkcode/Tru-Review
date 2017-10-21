@@ -3,6 +3,13 @@ var ratingCount = 0;
 var frmtName;
 var frmtAddr;
 
+var name;
+var address;
+var dbAddr;
+var ratingsobjectarray= [];
+var yelptoken = "Bearer dlVH8b6SrxR8hB3Qt-kp8oNeaDzXSYP5O_pG7Gy6Sm5E7PxMa_6wbrpY88thyflQ3KVJ8xg6eAtGO_oEYRtC8c9oXBTVsCSbJGzV65ohKSdKhEIDxqvvZxGP5X_lWXYx";
+
+
 $(document).ready(function() {
     $("#name-submit").on("click", function() { 
         var name = $("#name-search").val().trim();
@@ -88,13 +95,19 @@ $(document).ready(function() {
                 });
             });
         }
+    
     });
 });
 
+//Function to remove or replace special characters which will cause issues in url string
 function formatInput(field) {
-    return field.replace(' ', '+')
+    return field.replace(/ /g, '+')
                 .replace('.', '+')
-                .replace(',', '+');
+                .replace(/,/g, '+')
+                .replace("'", "")
+                .replace('#', "")
+                .replace('-', "+")
+                .split('++').join('+');
 }
 
 function formatReview(review) {

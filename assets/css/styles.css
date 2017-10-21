@@ -1,8 +1,18 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
+
+h3 {
+    color: white;
+}
+h4 {
+    color: white;
+}
+
 div.search {
-    position: inherit;
-    margin: 5% 25% 5% 25%;
+    margin: 5% 27% 5% 27%;
     text-align: center;
+    border: none;
+    position: relative;
+
 }
 
 #name-search {
@@ -14,6 +24,7 @@ div.search {
 }
 
 #results {
+    margin-top: -5%;
     display: none;
 }
 
@@ -22,7 +33,7 @@ body {
 }
 
 div.jumbotron {
-    margin: 5% 20% 5% 20%;
+    margin: 5% 12% 5% 12%;
     background: white;
     border-color: white;
     box-shadow: 0px 0px 50px grey;
@@ -31,21 +42,38 @@ div.jumbotron {
 }
 
 #logo {
-    margin: 0 35% 0 25%;
-    height: 50%;
-    width: 50%;
+    margin: 0 40% 0 30%;
+    height: 40%;
+    width: 40%;
 }
 
 #mascot {
-    margin: 0 40% 0 40%;
-    height: 20%;
-    width: 20%;
+    margin: 0 40% 0 42%;
+    height: 15%;
+    width: 15%;
+}
+
+#message {
+    margin-left: 2%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+#trureviewRating {
+    margin-left: 2%;
+    margin-bottom: 5%;
+    text-align: center;
 }
 
 /*codepen CSS*/
 
 div.form {
-    width: 340px;
+    width: 100%;
+    margin-right: 30%;
+}
+
+input:focus {
+    outline: none;
 }
 
 input[type='text'] {
@@ -60,25 +88,37 @@ input[type='text'] {
     width: -webkit-calc(150% - 15px);
     width: -moz-calc(150% - 15px);
     width: calc(150% - 15px);
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 input[type='text'][placeholder] {
     color: #656d79;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 500;
+    text-align: center;
 }
+
+div.input-btn-group {
+
+}
+
 
 /*BUTTON*/
 /* Button resets and style */
 button {
+    /*float: right;*/
     margin-left: 45%;
-    font-family: "Montserrat";
+    margin-bottom: 10px;
+    /*font-family: "Montserrat";*/
     font-size: 20px;
     color: #ffffff;
     cursor: pointer;
     border-radius: 100px;
     padding: 15px 20px;
     border: 0px solid #000;
+}
+
+#address-submit {
+    display: none;
 }
 
 /* Initiate Auto-Pulse animations */
@@ -95,15 +135,16 @@ button.pulse-button-hover {
 button:hover,
 button:focus {
     animation: borderPulse 1000ms infinite ease-out, colorShift 10000ms infinite ease-in, hoverShine 200ms;
+    outline: none;
 }
 
 /* Declate color shifting animation */
 @keyframes colorShift {
     0%, 100% {
-        background: #0045e6;
+        background: #fb3e3e;
     }
     33% {
-        background: #fb3e3e;
+        background: blue;
     }
     66%{
         background: #0dcc00;
@@ -133,15 +174,103 @@ button:focus {
     }
 }
 
+div.row {
+    position: relative;
+}
 
 
 /*RESULTS*/
+#external-ratings {
+    margin-top: -10%;
+    margin-left: 12%;
+    zoom: 0.5;
+    -moz-transform: scale(0.5);
+}
+
+div.col-sm-2 {
+    margin: 5%;
+}
+
 div.thumbnail {
     background-color: rgba(350, 200, 210, 0.8);
     border-color: grey;
+    height: 500px;
+    width: 350px;
+    margin: 10%;
 }
 
 div.thumbnail:hover {
     border-color: white;
     box-shadow: 0px 0px 50px grey;
+}
+
+div.caption {
+    position: absolute;
+    margin-top: -10px;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    background-color: grey;
+}
+
+/*div.caption:hover {*/
+    /*border-color: white;*/
+    /*box-shadow: 0px 0px 50px grey;*/
+/*}*/
+
+/*
+ * Rating styles
+ */
+
+.rating-trureview {
+    width: 226px;
+    margin: 0 auto 1em;
+    font-size: 45px;
+    overflow:hidden;
+}
+
+.rating-zomato {
+    width: 320px;
+    margin: 0 auto 1em;
+    font-size: 25px;
+    overflow:hidden;
+}
+
+.rating-google {
+    width: 320px;
+    margin: 0 auto 1em;
+    font-size: 25px;
+    overflow:hidden;
+}
+
+.rating-yelp {
+    width: 320px;
+    margin: 0 auto 1em;
+    font-size: 25px;
+    overflow:hidden;
+}
+
+
+.rating a {
+    float:right;
+    color: #aaa;
+    text-decoration: none;
+    -webkit-transition: color .4s;
+    -moz-transition: color .4s;
+    -o-transition: color .4s;
+    transition: color .4s;
+}
+/*.rating a:hover,*/
+/*.rating a:hover ~ a,*/
+/*.rating a:focus,*/
+/*.rating a:focus ~ a     {*/
+    /*color: orange;*/
+    /*cursor: pointer;*/
+/*}*/
+/*element1~element2 p ~ ul  Selects every <ul> element that are preceded by a <p> element*/
+.rating {
+    direction: rtl;
+}
+.rating a {
+    float:none;
 }

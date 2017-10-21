@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
 
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,51 +17,57 @@
 <body>
     <div class="jumbotron">
         <img id="logo" src="assets/media/trureviewlogo.png" alt="">
-        <img id="mascot" src="assets/media/mascot.gif" alt="">
-        <!--Name Search-->
-        <div id="name-search" class="search">
-            <div class="row">
-                <div class="form">
-                <input placeholder='Pick A Restaurant' type="text">
-                <button id="name-submit" class="pulse-button-hover">Go!</button>
-                </div>
-            </div>
-
+        <br><br><br>
+        <div class="row">
+            <img id="mascot" src="assets/media/mascot.gif" alt="">
         </div>
 
-
-        <!--Address Search-->
-        <div id="address-search" class="search">
-            <div class="row">
+        <!--Name Search-->
+        <div class="search">
+            <h2 id="message">How good is the food?</h2>
+            <div class="input-group">
                 <div class="form">
-                    <input placeholder='Enter Restaurant Address' type="text">
-                    <button id="address-submit" class="pulse-button-hover">Go!</button>
+                <input id="name-search" placeholder='Name A Restaurant!' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Name A Restuarant!'" type="text">
+                <input id="address-search" placeholder='Restaurant Address' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Restuarant Address'" type="text">
+                    <span class="input-btn-group">
+                        <button id="name-submit" class="pulse-button-hover">Let's Go!</button>
+                        <button id="address-submit" class="pulse-button-hover">Check It</button>
+                    </span>
                 </div>
             </div>
+
         </div>
 
 
 
 <!--Display results here-->
-        <div id="results" class="">
-            <div class="row">
-                <div class="col-sm-2 col-sm-offset-3">
+        <div id="results">
+            <h2 id="trureviewRating"></h2>
+            <div class="rating rating-trureview"><!--
+            --><a id="t5" title="Give 5 stars">★</a><!--
+            --><a id="t4" title="Give 4 stars">★</a><!--
+            --><a id="t3" title="Give 3 stars">★</a><!--
+            --><a id="t2" title="Give 2 stars">★</a><!--
+            --><a id="t1" title="Give 1 star">★</a>
+            </div>
+
+            <br><br>
+
+            <div id="external-ratings" class="row">
+                <div class="col-sm-2 col-sm-offset-2">
                     <div class="thumbnail">
                         <a href="">
-                            <img src="assets/media/mascot.gif" style="width:100%">
+                            <img src="assets/media/google-img.png" style="width:100%">
                             <div class="caption">
-                                <h3></h3>
-                                <h4>
-                                <span class="label label-warning glyphicon glyphicon-usd">
-
-                                </span>
-                                    <span class="label label-danger glyphicon glyphicon-screenshot">
-
-                                </span>
-                                    <span class="label label-success glyphicon glyphicon-tower">
-
-                                </span>
-                                </h4>
+                                <h3>Google Places</h3>
+                                <h4 id="google-rating"></h4>
+                                <div class="rating rating-google"><!--
+                                --><a id="g5" title="Give 5 stars">★</a><!--
+                                --><a id="g4" title="Give 4 stars">★</a><!--
+                                --><a id="g3" title="Give 3 stars">★</a><!--
+                                --><a id="g2" title="Give 2 stars">★</a><!--
+                                --><a id="g1" title="Give 1 star">★</a>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -69,20 +75,17 @@
                 <div class="col-sm-2">
                     <div class="thumbnail">
                         <a href="">
-                            <img src="Assets/media/player/drill/drill.png" style="width:100%">
+                            <img src="assets/media/yelp-img.jpg" style="width:100%">
                             <div class="caption">
-                                <h3></h3>
-                                <h4>
-                                <span class="label label-warning glyphicon glyphicon-usd">
-
-                                </span>
-                                    <span class="label label-danger glyphicon glyphicon-screenshot">
-
-                                </span>
-                                    <span class="label label-success glyphicon glyphicon-tower">
-
-                                </span>
-                                </h4>
+                                <h3>Yelp</h3>
+                                <h4 id="yelp-rating"></h4>
+                                <div class="rating rating-yelp"><!--
+                                --><a id="y5" title="Give 5 stars">★</a><!--
+                                --><a id="y4" title="Give 4 stars">★</a><!--
+                                --><a id="y3" title="Give 3 stars">★</a><!--
+                                --><a id="y2" title="Give 2 stars">★</a><!--
+                                --><a id="y1" title="Give 1 star">★</a>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -90,20 +93,17 @@
                 <div class="col-sm-2">
                     <div class="thumbnail">
                         <a href="">
-                            <img src="Assets/media/player/saw/saw.png" style="width:100%">
+                            <img src="assets/media/zomato-img.png" style="width:100%">
                             <div class="caption">
-                                <h3></h3>
-                                <h4>
-                                <span class="label label-warning glyphicon glyphicon-usd">
-
-                                </span>
-                                    <span class="label label-danger glyphicon glyphicon-screenshot">
-
-                                </span>
-                                    <span class="label label-success glyphicon glyphicon-tower">
-
-                                </span>
-                                </h4>
+                                <h3>Zomato</h3>
+                                <h4 id="zomato-rating"></h4>
+                                <div class="rating rating-zomato"><!--
+                                --><a id="z5" title="Give 5 stars">★</a><!--
+                                --><a id="z4" title="Give 4 stars">★</a><!--
+                                --><a id="z3" title="Give 3 stars">★</a><!--
+                                --><a id="z2" title="Give 2 stars">★</a><!--
+                                --><a id="z1" title="Give 1 star">★</a>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -120,12 +120,19 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <!-- JS Asset references-->
+
+    <!-- Proxy Server -->
+    <script src='assets/js/csproxy.js'></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+
+     <!-- Local JS Asset references-->
+
     <script type="text/javascript" src="assets/js/api.js"></script>
     <script type="text/javascript" src="assets/js/firebase.js"></script>
     <script type="text/javascript" src="assets/js/logic.js"></script>
     <script type="text/javascript" src="assets/js/styles.js"></script>
 </body>
 </html>
-
 

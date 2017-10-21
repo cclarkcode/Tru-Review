@@ -12,48 +12,203 @@ var config = {
 var database = firebase.database();
 
 
-$(document).ready(function () {
+// $(document).ready(function () {
 
-    /*var users = {
-    	exampleUser: {
-    		exampleRating: 4,
-    		exampleReview: 'this place rocked, fam!'
-    	}
+//     /*var users = {
+//     	exampleUser: {
+//     		exampleRating: 4,
+//     		exampleReview: 'this place rocked, fam!'
+//     	}
 
-    };*/
-    var restaurants = {
-    	exampleName: {
-    		address: 'b street',
-    		exampleReview: {
-    			comments: 'this place rocked, fam!',
-    			score: 4,
-    			//user: users.exampleUser
-    		}
-    	}
+//     };*/
+//     // var restaurants = {
+//     // 	exampleName: {
+//     // 		address: 'b street',
+//     // 		exampleReview: {
+//     // 			comments: 'this place rocked, fam!',
+//     // 			score: 4,
+//     // 			//user: users.exampleUser
+//     // 		}
+//     // 	}
 
-    };
+//     // };
 
-    console.log(restaurants.exampleName);
-    database.ref().set({
-        restaurants: restaurants
+//     // console.log(restaurants.exampleName);
+//     // database.ref().set({
+//     //     restaurants: restaurants
+//     // })
+
+
+//     // database.ref().on("value", function(snapshot) {
+
+//     //   console.log(snapshot.val().restaurants);
+
+//     //   // Handle the errors
+//     // }, function(errorObject) {
+//     //   console.log("Errors handled: " + errorObject.code);
+//     // });
+
+
+
+
+
+// });
+
+// function fbinitial(frmtName, frmtAddr) {
+
+//     database.ref('/tru-review').once("value", function(snapshot) {
+
+//         return snapshot
+
+//     });
+
+
+// }
+
+// setup();
+
+
+//Finds restaurant in database based on address, if not there, adds to database
+function dbfind(name, address, ratingsarray, callback) {
+
+    var id;
+
+    console.log("Find address in :");
+    console.log(ratingsarray);
+
+    address = formatInput(ratingsarray[0].location.display_address[0] + ' ' + ratingsarray[0].location.display_address[1]);
+
+    database.ref('/restaurants').once("value", function(snapshot){
+
+        var snap = snapshot.val();
+
+        var found = false;
+
+        for (var i = 0; i < snap.length; i++) {
+            if (snap[i].address === address) {
+                found=true;
+                id = i.toString();
+            }
+        }
+
+       
+        if(!found) {
+            id = snap.length.toString();
+            database.ref('/restaurants/' + id).set({
+                name: name,
+                address: address,
+                reviews: null
+            })
+        }
+        else {
+            console.log("Exists in database");
+        }
+
+        database.ref('/restaurants/' + id).once("value", function (snapshot) {
+
+            ratingsarray.push(snapshot.val());
+            console.log(ratingsarray);
+            callback(ratingsarray);
+        })
+
     })
 
 
-    database.ref().on("value", function(snapshot) {
+}
 
-      console.log(snapshot.val().restaurants);
+function setup () {
 
-      // Handle the errors
-    }, function(errorObject) {
-      console.log("Errors handled: " + errorObject.code);
-    });
+    database.ref('/restaurants').set([{
+        name: "Flemings",
+        address: "8970+University+Center+Ln+San+Diego+CA+92122",
+        reviews: [{
+            Name: 'John',
+            Rating: 4,
+            Comment: 'Decent wine list and good service'
+        },
+        {
+            Name: 'Parker',
+            Rating: 5,
+            Comment: 'Best steak I\'ve ever had'
+        },
+        {
+            Name: 'Chris',
+            Rating: 3,
+            Comment: 'It\'s alright, but I don\'t know what the fuss is all about'
+        }]
+    }]);
+
+   
+}
+
+function reviewadd(addr, nam, com, rat, ratingsarray,callback) {
+
+    database.ref('/restaurants').once("value", function(snapshot){
+
+        var snap = snapshot.val();
+        var id = findid(addr,snap);
+        var reviewid;
+        
+        const exists=snap[id].reviews;
+
+        if(exists) {
+            reviewid = snap[id].reviews.length.toString();
+        }
+        else {
+            reviewid = '0';
+        }
+
+        database.ref('/restaurants/' + id + '/reviews/' + reviewid).set({
+            Name: nam,
+            Comment: com,
+            Rating: rat
+        });
+
+        ratingsarray.splice(3,1);
+        console.log(ratingsarray);
+        callback(addr,name,ratingsarray,runwhendone);  
 
 
+    });      
 
 
+}
 
-});
+function findid(addr, snapshot) {
 
-//32.870875
+    var id;
 
-//-117.224589
+    for (var i = 0; i < snapshot.length; i++) {
+            console.log(snapshot[i].address);
+            if (snapshot[i].address === addr) {
+                id = i;
+                console.log("Found");
+            }
+        }
+
+        return id
+
+}
+
+function dbrating(snapshot) {
+
+           
+        const exists=snapshot.reviews;
+        var totalstars = 0;
+        if(exists) {
+
+            for (var i = 0; i < snapshot.reviews.length; i++) {
+                totalstars += snapshot.reviews[i].Rating;
+            }
+            
+            return (totalstars/(snapshot.reviews.length)).toFixed(1);
+        }
+        else {
+            console.log("No ratings")
+            return 0;
+        }
+
+        
+}
+
+

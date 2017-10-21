@@ -6,7 +6,10 @@ var gCoordBase = "geocode/json?address=";
 var gPlaceBase = "place/nearbysearch/json?location="
 var gApiKey = "&key=AIzaSyDFJA-1O_YEj46FAJKk48WibUoT7YHdK1E";
 
+
+
 var zomatoBase = "https://developers.zomato.com/api/v2.1/search?q=";
+var yelpBase = "https://api.yelp.com/v3/businesses/search?term=";
 
 var yelpAuthTokenUrl = "https://api.yelp.com/oauth2/token%0A?grant_type=client_credentials&client_id=800_1iRDDSx1mkxG680z6A&client_secret=ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t";
 
@@ -31,7 +34,14 @@ function zomatoRestaurantSearch(coords, name) {
 
 function yelpRestaurantSearch(coords, name) {
     var place = name.replace("+", "%20");
+<<<<<<< HEAD
     return yelpApiBase + place + "&latitude=" + coords.lat + "&longitude=" + coords.lng;
+=======
+
+    var outputurl = yelpBase + place + "&latitude=" + coords.lat + "&longitude=" + coords.lng;
+    console.log(outputurl);
+    return outputurl;
+>>>>>>> 887d2a57687d5d8d6c3201a9e19e1f004471b049
 }
 
 function request(options) { 
@@ -80,31 +90,45 @@ var proxyOptions = (method, reqUrl) => ({
 
 var coordinates = (response) => {
     var coords = JSON.parse(response);
-    return {
-        lat: coords.results[0].geometry.location.lat,
-        lng: coords.results[0].geometry.location.lng
-    };
+    if (coords.status !== "ZERO_RESULTS") { 
+        return {
+            lat: coords.results[0].geometry.location.lat,
+            lng: coords.results[0].geometry.location.lng
+        };
+    }
+    else errorfunction();
 }
 
 function getRestaurant(name, response) {
     var places = JSON.parse(response).results;
-    for(var i = 0; i < places.length; i++) {
-        if(places[i].name.toUpperCase().includes(name.toUpperCase())) {
-            return places[i];
+
+    //If multiple places returned, find correct location within array, otherwise return only restaurant found
+     if (places.length !== 1) {
+        for(var i = 0; i < places.length; i++) {
+            if(places[i].name.toUpperCase().includes(name.toUpperCase())) {
+                return places[i];
+            }
         }
     }
+    else {return places[0];}
+
 }
 
 function getRestaurantExact(name, response) {
-    var places = JSON.parse(response).results;
-    for(var i = 0; i < places.length; i++) {
-        if(places[i].name.toUpperCase() === name.toUpperCase()) {
-            return places[i];
+    var places = JSON.parse(response);
+
+    //If multiple places returned, find correct location within array, otherwise return only restaurant found
+     if (places.length !== 1) {
+        for(var i = 0; i < places.length; i++) {
+            if(places[i].name.toUpperCase() === name.toUpperCase()) {
+                return places[i];
+            }
         }
     }
+    else {return places[0];}
 }
 
-
+//Use of Open Table deprecated because they don't actually provide reviews through API
 function opentableapi (restaurant, zip, callback) {
 
     //Returns through callback first restaurant in list searching by name and zip code
@@ -128,24 +152,3 @@ function opentableapi (restaurant, zip, callback) {
 
   }
 
-  function zomatoapi (restaurant, zip, callback) {
-
-    //Returns through callback first restaurant in list searching by name and zip code
-
-    //Query string
-    var queryURL = "https://opentable.herokuapp.com/api/restaurants?name=" + restaurant + "&zip=" + zip;
-
-    //API call
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).done(function(response) {
-
-      //Placeholder for information
-      var info=response.restaurants[0];
-
-      //Returns data here
-      callback(info);
-    
-    });
-}
