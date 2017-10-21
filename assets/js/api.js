@@ -10,6 +10,8 @@ var zomatoBase = "https://developers.zomato.com/api/v2.1/search?q=";
 
 var yelpAuthTokenUrl = "https://api.yelp.com/oauth2/token%0A?grant_type=client_credentials&client_id=800_1iRDDSx1mkxG680z6A&client_secret=ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t";
 
+var yelpApiBase = "https://api.yelp.com/v3/businesses/search?term=";
+
 function buildProxyUrl(remoteUrl) {
     return csProxyUtils.buildProxyUrl(chrisKey, remoteUrl);
 }
@@ -25,6 +27,11 @@ function googleDetailSearch(coords, name) {
 function zomatoRestaurantSearch(coords, name) {
     var place = name.replace("+", "%20");
     return zomatoBase + place + "&lat=" + coords.lat + "&lon=" + coords.lng + "&radius=500&sort=real_distance&order=asc";
+}
+
+function yelpRestaurantSearch(coords, name) {
+    var place = name.replace("+", "%20");
+    return yelpApiBase + place + "&latitude=" + coords.lat + "&longitude=" + coords.lng;
 }
 
 function request(options) { 

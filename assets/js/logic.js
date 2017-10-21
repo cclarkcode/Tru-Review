@@ -1,3 +1,7 @@
+var yelpAuthToken;
+var averageRating;
+var reviews;
+
 $(document).ready(function() {
 
     $("#submit-button").on("click", function() { 
@@ -7,29 +11,28 @@ $(document).ready(function() {
         if(!(address === null || address.match(/^ *$/) !== null)) {
             var frmtAddr = addressSearch(address);
             var frmtName = formatInput(name);
-            var test = "http://localhost:8080/";
-            // request({
-            //     method: 'POST',
-            //     url: test+yelpAuthUrl,
-            //     headers: {
-            //         "Access-Control-Allow-Headers": "*",
-            //         "origin": "*",
-            //         "grant_type": 'client_credentials',
-            //         "client_id": '800_1iRDDSx1mkxG680z6A',
-            //         "client_secret": 'ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t'
-            //        }
-            // })  
-            // .then(function(tokenResponse) {
-            //     console.log(tokenResponse);
-                
-            // });
-            
-            request(
-                proxyOptions('POST', buildProxyUrl(yelpAuthTokenUrl)
-            ))
+
+            request(proxyOptions('POST', yelpAuthTokenUrl))
             .then(function(tokenResponse) {
-                console.log(tokenResponse);
-                
+                yelpAuthToken = JSON.parse(tokenResponse).access_token;
+            })
+            .then(function(){
+                return request(proxyOptions('GET', frmtAddr));
+            })
+            .then(function(coordsResponse){
+                var coords = coordinates(coordsResponse);
+                return request({
+                    method: 'GET',
+                    url: buildProxyUrl(yelpRestaurantSearch(coords, frmtName)),
+                    headers: {
+                        "authorization": "Bearer " + yelpAuthToken
+                       }
+                });
+            })
+            .then(function(yelpResponse) {
+                var yelpPlace = JSON.parse(yelpResponse).businesses[0];
+                yelpPlace.rating > 0 ? review += 1 : review;
+                console.log("Yelp Rating: " + formatReview(yelpPlace.rating));
             });
 
             request(proxyOptions('GET', frmtAddr))  
@@ -45,8 +48,8 @@ $(document).ready(function() {
             })
             .then(function (detailsResponse) {
                 var zomatoPlace = JSON.parse(detailsResponse).restaurants[0];
-                console.log(zomatoPlace.restaurant.name);
-                console.log("Zomato: " + formatReview(zomatoPlace.restaurant.user_rating.aggregate_rating));
+                zomatoPlace.restaurant.user_rating.aggregate_rating > 0 ? review += 1 : review;
+                console.log("Zomato Rating: " + formatReview(zomatoPlace.restaurant.user_rating.aggregate_rating));
             });
 
             request(proxyOptions('GET', frmtAddr))  
@@ -58,8 +61,8 @@ $(document).ready(function() {
                 return getRestaurant(name, detailsResponse);
             })
             .then(function(restraurantResponse) {
-                console.log(restraurantResponse.name);
-                console.log("Google: " + formatReview(restraurantResponse.rating));
+                restraurantResponse.rating > 0 ? review += 1 : review;
+                console.log("Google Rating: " + formatReview(restraurantResponse.rating));
             });
         }
     });
