@@ -46,15 +46,20 @@ function colorStars(rating, starArray) {
 function searchComplete() {
     $('#results').delay(400).fadeIn(600);
     $('#logo').css({
-        'width': '40%',
-        'height': '40%',
-        'margin-left': '30%'
+        'width': '30%',
+        'height': '30%',
+        'margin-left': '35%'
     });
     $('#mascot').css({
-        'width': '20%',
-        'height': '20%',
-        'margin-left': '40%'
+        'width': '15%',
+        'height': '15%',
+        'margin-left': '42%'
     });
+    // Add numeric labels with ratings
+    $('#message').text(combinedRating.toString());
+    $('#google-rating').text(googleRating.toString());
+    $('#zomato-rating').text(zomatoRating.toString());
+    $('#yelp-rating').text(yelpRating.toString());
 
     //Add ratings
     colorStars(combinedRating, trureviewStars);
@@ -74,8 +79,6 @@ $(document).ready(function() {
         $('#name-submit').hide();
         $('#address-submit').show();
         $('#address-search').delay(400).fadeIn(600);
-
-
     });
 
 

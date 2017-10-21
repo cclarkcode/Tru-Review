@@ -24,7 +24,7 @@ $(document).ready(function() {
         console.log(name);
 
 
-        address = $("#address-input").val().trim();
+        address = $("#address-search").val().trim();
 
 
         console.log(address);
