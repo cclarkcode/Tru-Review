@@ -1,8 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:600);
 
+h3 {
+    color: white;
+}
 h4 {
     color: white;
 }
+
 div.search {
     margin: 5% 27% 5% 27%;
     text-align: center;
@@ -50,6 +54,12 @@ div.jumbotron {
 }
 
 #message {
+    margin-left: 2%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+
+#trureviewRating {
     margin-left: 2%;
     margin-bottom: 5%;
     text-align: center;
@@ -170,7 +180,10 @@ div.row {
 
 /*RESULTS*/
 #external-ratings {
-    margin-left: 10%;
+    margin-top: -10%;
+    margin-left: 12%;
+    zoom: 0.5;
+    -moz-transform: scale(0.5);
 }
 
 div.col-sm-2 {
@@ -180,8 +193,8 @@ div.col-sm-2 {
 div.thumbnail {
     background-color: rgba(350, 200, 210, 0.8);
     border-color: grey;
-    height: 300px;
-    width: 230px;
+    height: 500px;
+    width: 350px;
     margin: 10%;
 }
 
@@ -196,8 +209,13 @@ div.caption {
     color: white;
     padding: 15px;
     text-align: center;
-    background-color: dimgrey;
+    background-color: grey;
 }
+
+/*div.caption:hover {*/
+    /*border-color: white;*/
+    /*box-shadow: 0px 0px 50px grey;*/
+/*}*/
 
 /*
  * Rating styles
@@ -211,21 +229,21 @@ div.caption {
 }
 
 .rating-zomato {
-    width: 200px;
+    width: 320px;
     margin: 0 auto 1em;
     font-size: 25px;
     overflow:hidden;
 }
 
 .rating-google {
-    width: 200px;
+    width: 320px;
     margin: 0 auto 1em;
     font-size: 25px;
     overflow:hidden;
 }
 
 .rating-yelp {
-    width: 200px;
+    width: 320px;
     margin: 0 auto 1em;
     font-size: 25px;
     overflow:hidden;

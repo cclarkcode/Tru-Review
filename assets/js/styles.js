@@ -44,6 +44,7 @@ function colorStars(rating, starArray) {
 
 // Kick off when API call is finished
 function searchComplete() {
+    $('#message').fadeOut(400);
     $('#results').delay(400).fadeIn(600);
     $('#logo').css({
         'width': '30%',
@@ -56,7 +57,7 @@ function searchComplete() {
         'margin-left': '42%'
     });
     // Add numeric labels with ratings
-    $('#message').text(combinedRating.toString());
+    $('#trureviewRating').text(combinedRating.toString());
     $('#google-rating').text(googleRating.toString());
     $('#zomato-rating').text(zomatoRating.toString());
     $('#yelp-rating').text(yelpRating.toString());
