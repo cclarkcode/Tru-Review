@@ -7,7 +7,8 @@ var yelptoken = "Bearer dlVH8b6SrxR8hB3Qt-kp8oNeaDzXSYP5O_pG7Gy6Sm5E7PxMa_6wbrpY
 
 $(document).ready(function() {
 
-    run();
+
+    // run();
 
 
     //Store name globally to use after 2nd of 2 step search
@@ -231,6 +232,8 @@ function runwhendone(ratingsarray) {
     //For internal
     var internalrating = dbrating(ratingsarray[3]);
     console.log(internalrating);
+
+    searchComplete(yelprating,zomatorating,googlerating,internalrating);
 
 }
 
