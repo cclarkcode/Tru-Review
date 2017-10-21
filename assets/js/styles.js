@@ -63,7 +63,7 @@ function searchComplete(yelp,zomato,google,internal) {
     $('#mascot').css({
         'width': '10%',
         'height': '10%',
-        'margin-left': '46%'
+        'margin-left': '44%'
     }).attr('src', 'assets/media/mascot.gif');
     // Add numeric labels with ratings
     var combinedRating = getAverageRating(internal,google,zomato,yelp);
