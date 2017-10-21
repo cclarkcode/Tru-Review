@@ -7,7 +7,8 @@ var yelptoken = "Bearer dlVH8b6SrxR8hB3Qt-kp8oNeaDzXSYP5O_pG7Gy6Sm5E7PxMa_6wbrpY
 
 $(document).ready(function() {
 
-    run();
+
+    // run();
 
 
     //Store name globally to use after 2nd of 2 step search
@@ -189,17 +190,65 @@ $("#add-review").on("click", function() {
     var rating = Math.floor(Math.random()*5)+1;
 
     console.log(dbAddr);
-    reviewadd(dbAddr,name,comment,rating,dbratingaverage);
+    reviewadd(dbAddr,name,comment,rating,ratingsobjectarray,dbfind);
 
 });
 
 function runwhendone(ratingsarray) {
 
     console.log(ratingsarray);
+
+    //Quick validation check
+    //For yelp
+    if (validate(ratingsarray[0].location.address1, address))  {
+        console.log("Validated Yelp");
+        var yelprating = ratingsarray[0].rating;
+        console.log(yelprating);
+    }
+    else {
+        var yelprating = 0;
+    }
+
+    //For Zomato
+    if (validate(ratingsarray[1].restaurant.location.address, address))  {
+        console.log("Validated Zomato");
+        var zomatorating = ratingsarray[1].restaurant.user_rating.aggregate_rating;
+        console.log(zomatorating);
+    }
+    else {
+        var zomatorating = 0;
+    }
+
+    //For Google
+    if (validate(ratingsarray[2].vicinity, address))  {
+        console.log("Validated Google");
+        var googlerating = ratingsarray[2].rating;
+        console.log(googlerating);
+    }
+    else {
+        var googlerating = 0;
+    }
+
+    //For internal
+    var internalrating = dbrating(ratingsarray[3]);
+    console.log(internalrating);
+
+    searchComplete(yelprating,zomatorating,googlerating,internalrating);
+
 }
 
 function errorfunction () {
 
     console.log("Got to the error function");
     $("#myModal").toggle();
+}
+
+function validate (array_address_string, user_address) {
+
+    var strnum = array_address_string.substr(0,array_address_string.indexOf(" "));
+    if(user_address.indexOf(strnum)< 0) {
+        return false;
+    } else {
+        return true;
+    }
 }

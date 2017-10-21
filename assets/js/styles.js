@@ -19,15 +19,19 @@ var longCordinates = '';
 function getAverageRating(trureviewRating, googleRating, zomatoRating, yelpRating) {
     var ratings = [trureviewRating, googleRating, zomatoRating, yelpRating];
     var average = 0;
+    var divider = 0;
     for (var i = 0; i < ratings.length; i++) {
-        if (ratings[i] !== 0){
-            average += ratings[i];
+        if (parseFloat(ratings[i]) !== 0){
+            average += parseFloat(ratings[i]);
+            divider++;
         }
     }
+    console.log(average);
+    console.log(divider);
     if (average === 0) {
-        return 'No ratings available';
-    } else {
         return average;
+    } else {
+        return (average/divider).toFixed(1);
     }
 }
 
@@ -43,8 +47,7 @@ function colorStars(rating, starArray) {
 
 
 // Kick off when API call is finished
-function searchComplete() {
-    $('#message').fadeOut(400);
+function searchComplete(yelp,zomato,google,internal) {
     $('#results').delay(400).fadeIn(600);
     $('#logo').css({
         'width': '30%',
@@ -57,16 +60,37 @@ function searchComplete() {
         'margin-left': '42%'
     });
     // Add numeric labels with ratings
-    $('#trureviewRating').text(combinedRating.toString());
-    $('#google-rating').text(googleRating.toString());
-    $('#zomato-rating').text(zomatoRating.toString());
-    $('#yelp-rating').text(yelpRating.toString());
+
+    var combinedRating = getAverageRating(internal,google,zomato,yelp);
+
+    $('#message').text(combinedRating.toString());
+    
+    if(google > 0) {
+        $('#google-rating').text(google.toString());
+    }
+    else {
+        $('#google-rating').text("Not Rated");
+    } 
+
+    if(zomato > 0) {
+        $('#zomato-rating').text(zomato.toString());
+    }
+    else {
+        $('#zomato-rating').text("Not Rated");
+    } 
+    
+    if(yelp > 0) {
+        $('#yelp-rating').text(yelp.toString());
+    }
+    else {
+        $('#yelp-rating').text("Not Rated");
+    } 
 
     //Add ratings
     colorStars(combinedRating, trureviewStars);
-    colorStars(googleRating, googleStars);
-    colorStars(zomatoRating, zomatoStars);
-    colorStars(yelpRating, yelpStars);
+    colorStars(google, googleStars);
+    colorStars(zomato, zomatoStars);
+    colorStars(yelp, yelpStars);
 
 }
 
@@ -94,7 +118,9 @@ $(document).ready(function() {
         $('#name-search').fadeOut(500);
         $('#name-submit').fadeOut(500);
         $('#address-submit').fadeOut(500);
-        searchComplete()
+
+
+        // searchComplete()
 
     });
 });
