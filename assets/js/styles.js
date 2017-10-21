@@ -48,6 +48,7 @@ function colorStars(rating, starArray) {
 
 // Kick off when API call is finished
 function searchComplete(yelp,zomato,google,internal) {
+    $(".review").delay(400).fadeIn(600);
     $('#name').text(name);
     $('#results').delay(400).fadeIn(600);
     $('#logo').css({
@@ -91,6 +92,8 @@ function searchComplete(yelp,zomato,google,internal) {
     colorStars(google, googleStars);
     colorStars(zomato, zomatoStars);
     colorStars(yelp, yelpStars);
+
+
 
 }
 
@@ -155,3 +158,32 @@ $(document).ready(function() {
 
     });
 });
+
+function buildReviews(ratingsarray) {
+
+    var snapshot = ratingsarray[3];
+    var ourrating = dbrating(snapshot);
+    console.log(ourrating);
+
+    $('#trrating').text(ourrating);
+
+    
+    console.log(snapshot.reviews.length);
+
+    for (var i = 0; i < snapshot.reviews.length; i++) {
+
+        var reviewbody = $('.sample').clone();
+        reviewbody.removeClass('sample');
+        reviewbody.find(".review-name").text(snapshot.reviews[i].Name);
+        reviewbody.find("#review-rating").text(snapshot.reviews[i].Rating);
+        reviewbody.find(".review-comment").text(snapshot.reviews[i].Comment);
+        $(".review").append(reviewbody);
+        
+    }
+    
+    $('.sample').css("display", 'none');
+
+
+    console.log('getting here');
+
+}

@@ -7,6 +7,8 @@ var yelptoken = "Bearer dlVH8b6SrxR8hB3Qt-kp8oNeaDzXSYP5O_pG7Gy6Sm5E7PxMa_6wbrpY
 
 $(document).ready(function() {
 
+    // buildReviews(ratingsobjectarray);
+
 
     // run();
 
@@ -168,6 +170,7 @@ function run () {
 
             //Make API calls
             yelpAPIcall(frmtName,frmtAddr,ratingsobjectarray,zomatoAPIcall);
+
             // .then(zomatoAPIcall(frmtName,frmtAddr))
             // .then(googleAPIcall(frmtName,frmtAddr))
             // .then(dbfind(frmtName,dbAddr,callbacklog))
@@ -180,7 +183,7 @@ function callbacklog(snapshot) {
     console.log(snapshot);
 }
 
-$("#add-review").on("click", function() {
+$("#review-button").on("click", function() {
 
     var names = ["John", "Lindsay", "Jim", "Cade", "Jane"];
     var comments = ["This place sucks", "Nice Place!", "Good food, Bad service", "The best in the world", "Meh"];
@@ -234,13 +237,14 @@ function runwhendone(ratingsarray) {
     console.log(internalrating);
 
     searchComplete(yelprating,zomatorating,googlerating,internalrating);
+    buildReviews(ratingsarray);
 
 }
 
 function errorfunction () {
 
     console.log("Got to the error function");
-    $("#myModal").toggle();
+    $("#message").text('Sorry, that doesn\'t seem to be a valid restaurant');
 }
 
 function validate (array_address_string, user_address) {
