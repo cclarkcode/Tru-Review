@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Favorite Movies</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src='http://chrisstead.com/proxy/csproxy.js'></script>
+</head>
+
+<body>
+  <h1>Foursquare API stuff happening </h1>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src='http://chrisstead.com/proxy/csproxy.js'></script>
+  <script src='require.js'></script>
+
+</body>
+
+ <script type="text/javascript">
+
+  //Test file to hit the yelp authorization api to receive a token used for hitting the data api.
+
+  //Does not yet successfull generate a token
+
+  var chrisKey = '55d9430e09095b44d75ece0c0380c9daf1946332';
+
+  var url = csProxyUtils.buildProxyUrl(chrisKey, 'https://api.foursquare.com/v2/venues/explore');
+
+  console.log(url);
+
+//   function opentableapi (restaurant, zip, callback) {
+
+//     //Returns through callback first restaurant in list searching by name and zip code
+
+//     const request = require('request');
+
+//     request({
+//       url:  csProxyUtils.buildProxyUrl(chrisKey, 'https://api.foursquare.com/v2/venues/explore'),
+//       method: 'GET',
+//       qs: {
+//         client_id: 'BHPHWV3IP2GEXGKJAUQWRQBA3MRZJMUCVZHUBSRGWLHWQSAT',
+//         client_secret: 'RYKN5DV53IUFZ1ZDN15NEMTPQZSL30MHTDI4FDFAWQP0VJYM',
+//         ll: '40.7243,-74.0018',
+//         query: 'coffee',
+//         v: '20170801',
+//         limit: 1
+//       }
+//     }, function(err, res, body) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         console.log(body);
+//       }
+//     });
+
+//   }
+
+//   opentableapi("Fleming's","92122", callbackfunction)
+
+
+// function callbackfunction(response) {
+
+//   console.log(response);
+// }
+
+  </script>
+
+</html>

@@ -158,6 +158,9 @@ div.row {
 
 
 /*RESULTS*/
+#external-ratings {
+    margin-left: 10%;
+}
 div.col-sm-2 {
     margin: 5%;
 }
@@ -233,13 +236,13 @@ div.caption {
     -o-transition: color .4s;
     transition: color .4s;
 }
-.rating a:hover,
-.rating a:hover ~ a,
-.rating a:focus,
-.rating a:focus ~ a     {
-    color: orange;
-    cursor: pointer;
-}
+/*.rating a:hover,*/
+/*.rating a:hover ~ a,*/
+/*.rating a:focus,*/
+/*.rating a:focus ~ a     {*/
+    /*color: orange;*/
+    /*cursor: pointer;*/
+/*}*/
 /*element1~element2 p ~ ul  Selects every <ul> element that are preceded by a <p> element*/
 .rating {
     direction: rtl;
