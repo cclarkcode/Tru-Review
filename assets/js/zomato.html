@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <h1>API stuff happening </h1>
+  <h1>Zomato API stuff happening </h1>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
 
@@ -22,11 +22,13 @@
 
      function zomatoapi (restaurant, zip, callback) {
 
-   
+    var name = "The%20Local";
+    var lat = 32.793658;
+    var lon = -117.253980;
 
     //Query string
     var userkey = "f73f1e3b1f28a94ae801eb97cf84f822"
-    var queryURL = "https://developers.zomato.com/api/v2.1/search?lat=32.870875&lon=-117.224589&radius=0";
+    var queryURL = "https://developers.zomato.com/api/v2.1/search?q=" + name + "&lat=" + lat + "&lon=" + lon + "&radius=500&sort=real_distance&order=asc";
     //API call
     $.ajax({
       url: queryURL,
@@ -38,7 +40,7 @@
 
 
       //Placeholder for information
-      console.log(response);
+      callback(response);
 
       }
 
@@ -56,7 +58,7 @@
   }
 
     function callbackfunction (info) {
-      console.log("In callback",info);
+      console.log("In callback",info.restaurants[0]);
     }
 
 

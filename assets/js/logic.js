@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 var yelpAuthToken;
 var averageRating;
 var reviews;
+=======
+>>>>>>> 02d1f110e1035af2cf6f4ca239cc83fda9373e6d
 
 $(document).ready(function() {
 

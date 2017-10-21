@@ -10,53 +10,103 @@
 </head>
 
 <body>
-  <h1>API stuff happening </h1>
-<!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src=“http://chrisstead.com/proxy/csproxy.js“></script> -->
+  <h1>Yelp API stuff happening </h1>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src='http://chrisstead.com/proxy/csproxy.js'></script>
 
 </body>
 
  <script type="text/javascript">
 
   //Test file to hit the yelp authorization api to receive a token used for hitting the data api.
+  var chrisKey = '55d9430e09095b44d75ece0c0380c9daf1946332';
 
   //Does not yet successfull generate a token
 
-   function yelptoken () {
+   function yelptoken (callback) {
 
-    var remoteUrl = 'https://api.yelp.com/oauth2/token';
-    var chrisKey = '55d9430e09095b44d75ece0c0380c9daf1946332';
+    // var remoteUrl = 'https://api.yelp.com/oauth2/token';
+    
 
-    var queryUrl = csProxyUtils.buildProxyUrl(chrisKey, remoteUrl);
-    var clientkey = '800_1iRDDSx1mkxG680z6A';
-    var secretkey = 'ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t';
+    // var queryUrl = csProxyUtils.buildProxyUrl(chrisKey, remoteUrl);
+    // var clientkey = '800_1iRDDSx1mkxG680z6A';
+    // var secretkey = 'ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t';
 
 
-$.ajax({
-      url: queryUrl,
-      method: "post",
-      grant_type: 'client_credentials',
-      client_id: '800_1iRDDSx1mkxG680z6A',
-      client_secret: 'ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t',
-      error: function(response) {
-      console.log("Error");
+// $.ajax({
+//       url: queryUrl,
+//       method: "post",
+//       grant_type: 'client_credentials',
+//       client_id: '800_1iRDDSx1mkxG680z6A',
+//       client_secret: 'ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t',
+//       error: function(response) {
+//       console.log("Error");
+//       console.log(response);
+//       },
+//       success: function(response) {
+
+//       //Placeholder for information
+//       console.log("Success");
+//       console.log(response);
+
+//       }
+
+//     });
+
+    var rawUrl = "https://api.yelp.com/oauth2/token%0A?grant_type=client_credentials&client_id=800_1iRDDSx1mkxG680z6A&client_secret=ug0rVli4OnqYsHKgv8epYIBynvQZZlOmH3z3Luz5fddVfrXj4qE9Z8shxjlpRI7t";
+
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": csProxyUtils.buildProxyUrl(chrisKey, rawUrl),
+      "method": "POST"
+    }
+
+    $.ajax(settings).done(function (response) {
       console.log(response);
-      },
-      success: function(response) {
-
-      //Placeholder for information
-      console.log("Success");
-      console.log(response);
-
-      }
-
+      var newresponse = JSON.parse(response);
+      console.log(newresponse.access_token);
+      callback(newresponse.access_token);
     });
     
 
   }
 
-  yelptoken();
+  yelptoken(callbackfunction);
 
+
+
+
+ function callbackfunction(response) {
+
+  console.log(response);
+  yelpapi(response);
+ }
+
+ function yelpapi (token) {
+
+  var hitURL = "https://api.yelp.com/v3/businesses/search?term=The%20Local&location=809%20Thomas%20Ave%2C%20San%20Diego%2C%20CA%2092109";
+
+ var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": csProxyUtils.buildProxyUrl(chrisKey, hitURL),
+  "method": "GET",
+  "headers": {
+    "authorization": "Bearer dlVH8b6SrxR8hB3Qt-kp8oNeaDzXSYP5O_pG7Gy6Sm5E7PxMa_6wbrpY88thyflQ3KVJ8xg6eAtGO_oEYRtC8c9oXBTVsCSbJGzV65ohKSdKhEIDxqvvZxGP5X_lWXYx",
+    "cache-control": "no-cache",
+    "postman-token": "7a488bcd-1f9e-f2fb-c57c-ff3f4d60a009"
+  }
+}
+
+console.log(settings);
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+  console.log(JSON.parse(response));
+});
+
+ }
 
   </script>
 
