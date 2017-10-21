@@ -48,7 +48,7 @@ function colorStars(rating, starArray) {
 
 // Kick off when API call is finished
 function searchComplete(yelp,zomato,google,internal) {
-    $('#message').fadeOut(300);
+    $('#name').text(name);
     $('#results').delay(400).fadeIn(600);
     $('#logo').css({
         'width': '30%',
@@ -59,7 +59,7 @@ function searchComplete(yelp,zomato,google,internal) {
         'width': '15%',
         'height': '15%',
         'margin-left': '42%'
-    });
+    }).attr('src', 'assets/media/mascot.gif');
     // Add numeric labels with ratings
     var combinedRating = getAverageRating(internal,google,zomato,yelp);
 
@@ -98,26 +98,57 @@ var googleStars = ['#g1', '#g2', '#g3', '#g4', '#g5'];
 var trureviewStars = ['#t1', '#t2', '#t3', '#t4', '#t5'];
 var zomatoStars = ['#z1', '#z2', '#z3', '#z4', '#z5'];
 var yelpStars = ['#y1', '#y2', '#y3', '#y4', '#y5'];
-// JavaScript function that wraps everything
-$(document).ready(function() {
-    $("#name-submit").click(function () {
+
+function loadingMessage() {
+    var messages = [
+        'Getting ratings now!',
+        'Searching for your ratings!',
+        'Your ratings coming right up!'
+    ];
+    var rdm = Math.floor(Math.random() * 3);
+    return messages[rdm]
+}
+
+function nameValidation(name) {
+    if (name === '') {
+        $('#message').text('Oops! You forgot to enter a restaurant!');
+    } else {
+        $('#message').text('I need an address to get extra good results =)');
         $('#name-submit').hide();
         $('#address-submit').show();
         $('#address-search').delay(400).fadeIn(600);
+    }
+}
+
+function addressValidation(address) {
+    if (address === '') {
+        $('#message').text('I can\'t find the ratings without an address. Help me out!');
+    } else {
+        $('#message').text(loadingMessage());
+        $('#address-search').fadeOut(500);
+        $('#name-search').fadeOut(500);
+        $('#name-submit').fadeOut(500);
+        $('#address-submit').fadeOut(500);
+        $('#mascot').attr('src', "assets/media/mascot-2.gif")
+    }
+}
+
+// JavaScript function that wraps everything
+$(document).ready(function() {
+    $("#name-submit").click(function () {
+        //Get values from text fields
+        name = $('#name-search').val();
+        console.log("Name:"+ name);
+        nameValidation(name);
     });
 
 
     $("#address-submit").click(function () {
         //Get values from text fields
-        name = $('#name-search').val();
         address = $('#address-search').val();
-        console.log("Name:"+ name);
         console.log("Address:"+ address);
+        addressValidation(address);
 
-        $('#address-search').fadeOut(500);
-        $('#name-search').fadeOut(500);
-        $('#name-submit').fadeOut(500);
-        $('#address-submit').fadeOut(500);
 
 
         // searchComplete()

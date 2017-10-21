@@ -135,6 +135,7 @@ button.pulse-button-hover {
 button:hover,
 button:focus {
     animation: borderPulse 1000ms infinite ease-out, colorShift 10000ms infinite ease-in, hoverShine 200ms;
+    outline: none;
 }
 
 /* Declate color shifting animation */
