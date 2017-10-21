@@ -67,9 +67,16 @@ var database = firebase.database();
 
 // setup();
 
-function dbfind(name, address, callback) {
+
+//Finds restaurant in database based on address, if not there, adds to database
+function dbfind(name, address, ratingsarray, callback) {
 
     var id;
+
+    console.log("Find address in :");
+    console.log(ratingsarray);
+
+    address = formatInput(ratingsarray[0].location.display_address[0] + ' ' + ratingsarray[0].location.display_address[1]);
 
     database.ref('/restaurants').once("value", function(snapshot){
 
@@ -99,7 +106,9 @@ function dbfind(name, address, callback) {
 
         database.ref('/restaurants/' + id).once("value", function (snapshot) {
 
-            callback(snapshot.val());
+            ratingsarray.push(snapshot.val());
+            console.log(ratingsarray);
+            callback(ratingsarray);
         })
 
     })
@@ -180,7 +189,7 @@ function findid(addr, snapshot) {
 
 }
 
-function dbratingaverage(addr) {
+function dbrating(name,addr,ratingsarray,callback) {
 
     database.ref('/restaurants').once("value", function(snapshot) {
 
@@ -201,6 +210,8 @@ function dbratingaverage(addr) {
         else {
             console.log("No ratings")
         }
+
+        callback(ratingsarray);
         
 
 

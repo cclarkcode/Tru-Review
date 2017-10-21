@@ -1,6 +1,7 @@
 var name;
 var address;
 var dbAddr;
+var ratingsobjectarray= [];
 var yelptoken = "Bearer dlVH8b6SrxR8hB3Qt-kp8oNeaDzXSYP5O_pG7Gy6Sm5E7PxMa_6wbrpY88thyflQ3KVJ8xg6eAtGO_oEYRtC8c9oXBTVsCSbJGzV65ohKSdKhEIDxqvvZxGP5X_lWXYx";
 
 
@@ -32,19 +33,21 @@ $(document).ready(function() {
             var frmtName = formatInput(name);
             dbAddr = formatInput(address);
 
-            //Make API calls
-            yelpAPIcall(frmtName,frmtAddr);           
-            zomatoAPIcall(frmtName,frmtAddr);
-            googleAPIcall(frmtName,frmtAddr);
-            dbfind(frmtName,dbAddr,callbacklog);
-            dbratingaverage(dbAddr);
+            //Begin API chain
+            ratingsarray =[];
+            yelpAPIcall(frmtName,frmtAddr,ratingsarray,zomatoAPIcall);
+                   
+            // zomatoAPIcall(frmtName,frmtAddr);
+            // googleAPIcall(frmtName,frmtAddr);
+            // dbfind(frmtName,dbAddr,callbacklog);
+            // dbratingaverage(dbAddr);
         }
     });
 });
 
 
 //Function to make Zomato API Call
-function zomatoAPIcall (frmtName,frmtAddr) {
+function zomatoAPIcall (frmtName,frmtAddr,ratingsarray,chain) {
 
     var zomatokey = "f73f1e3b1f28a94ae801eb97cf84f822";
 
@@ -61,14 +64,22 @@ function zomatoAPIcall (frmtName,frmtAddr) {
             })
             .then(function (detailsResponse) {
                 var zomatoPlace = JSON.parse(detailsResponse).restaurants[0];
-                console.log(zomatoPlace.restaurant.name);
-                console.log("Zomato: " + formatReview(zomatoPlace.restaurant.user_rating.aggregate_rating));
+                if (zomatoPlace !== undefined) {
+                    ratingsarray.push(zomatoPlace);
+                    console.log(ratingsarray);
+                    console.log("Zomato: " + formatReview(zomatoPlace.restaurant.user_rating.aggregate_rating));
+                    chain(frmtName,frmtAddr,ratingsarray,dbfind)
+                }
+                else {
+                    errorfunction();
+                }
+
             });
 
 }
 
 //Function to make Google Places API call
-function googleAPIcall (frmtName,frmtAddr) {
+function googleAPIcall (frmtName,frmtAddr,ratingsarray,chain) {
 
      request(proxyOptions('GET', frmtAddr))  
             .then(function (coordsResponse) {
@@ -80,15 +91,18 @@ function googleAPIcall (frmtName,frmtAddr) {
                 return getRestaurant(frmtName, detailsResponse);
             })
             .then(function(restraurantResponse) {
-                
+                ratingsarray.push(restraurantResponse);
+                console.log(ratingsarray);
                 console.log("Google: " + formatReview(restraurantResponse.rating));
+                chain(frmtName,frmtAddr,ratingsarray,runwhendone)
+                
             });
 
 
 }
 
 //Function to make Yelp API call
-function yelpAPIcall(frmtName,frmtAddr) {
+function yelpAPIcall(frmtName,frmtAddr,ratingsarray,chain) {
 
 var yelptoken = "Bearer dlVH8b6SrxR8hB3Qt-kp8oNeaDzXSYP5O_pG7Gy6Sm5E7PxMa_6wbrpY88thyflQ3KVJ8xg6eAtGO_oEYRtC8c9oXBTVsCSbJGzV65ohKSdKhEIDxqvvZxGP5X_lWXYx";
 var chriskey = "55d9430e09095b44d75ece0c0380c9daf1946332";
@@ -106,7 +120,11 @@ var chriskey = "55d9430e09095b44d75ece0c0380c9daf1946332";
             })
             .then(function (detailsResponse) {
                 var yelpPlace = JSON.parse(detailsResponse).businesses[0];
-                 console.log("Yelp: " + formatReview(yelpPlace.rating));
+                 // console.log(yelpPlace);
+                 ratingsarray.push(yelpPlace);
+
+                 //Calls next API function in the chain
+                 chain(frmtName,frmtAddr,ratingsarray,googleAPIcall);
             });
 }
 
@@ -142,11 +160,12 @@ function run () {
             
 
             //Make API calls
-            yelpAPIcall(frmtName,frmtAddr);           
-            zomatoAPIcall(frmtName,frmtAddr);
-            googleAPIcall(frmtName,frmtAddr);
-            dbfind(frmtName,dbAddr,callbacklog);
-            dbratingaverage(dbAddr);
+            yelpAPIcall(frmtName,frmtAddr,ratingsobjectarray,zomatoAPIcall);
+            // .then(zomatoAPIcall(frmtName,frmtAddr))
+            // .then(googleAPIcall(frmtName,frmtAddr))
+            // .then(dbfind(frmtName,dbAddr,callbacklog))
+            // .then(dbrating(dbAddr)); 
+            // runwhendone(yelprating,zomatorating,googlerating,internalrating);
 }
 
 function callbacklog(snapshot) {
@@ -167,3 +186,13 @@ $("#add-review").on("click", function() {
     reviewadd(dbAddr,name,comment,rating,dbratingaverage);
 
 });
+
+function runwhendone(ratingsarray) {
+
+    console.log(ratingsarray);
+}
+
+function errorfunction () {
+
+    Alert('Not a valid response');
+}
