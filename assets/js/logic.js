@@ -110,6 +110,7 @@ var chriskey = "55d9430e09095b44d75ece0c0380c9daf1946332";
    request(proxyOptions('GET', frmtAddr))  
             .then(function (coordsResponse) {
                 var coords = coordinates(coordsResponse);
+                if (coords !== undefined) {
                 return request({
                     method: 'GET',
                     url: csProxyUtils.buildProxyUrl(chrisKey, yelpRestaurantSearch(coords, frmtName)),
@@ -117,6 +118,9 @@ var chriskey = "55d9430e09095b44d75ece0c0380c9daf1946332";
                         "authorization": yelptoken
                        }
                 });
+                } else {
+                    errorfunction();
+                }
             })
             .then(function (detailsResponse) {
                 var yelpPlace = JSON.parse(detailsResponse).businesses[0];
@@ -194,5 +198,6 @@ function runwhendone(ratingsarray) {
 
 function errorfunction () {
 
-    Alert('Not a valid response');
+    console.log("Got to the error function");
+    $("#myModal").toggle();
 }
