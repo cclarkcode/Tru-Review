@@ -108,7 +108,7 @@ button {
     /*float: right;*/
     margin-left: 45%;
     margin-bottom: 10px;
-    font-family: "Montserrat";
+    /*font-family: "Montserrat";*/
     font-size: 20px;
     color: #ffffff;
     cursor: pointer;
@@ -274,3 +274,66 @@ div.caption {
 .rating a {
     float:none;
 }
+
+
+/*Styling for review section*/
+.review {
+    position: relative;
+    display: none;
+
+}
+
+.review-header {
+
+    margin-bottom: 25px;
+}
+
+
+.review h2 {
+
+    display: inline;
+}
+
+.ourscore {
+
+}
+
+.panel-heading {
+
+    background: #d3d3d3;
+}
+
+.panel-title {
+
+    padding: 10px;
+
+}
+
+.review-name {
+
+    display: inline;
+}
+
+.review-score {
+
+    margin-left: 50%;
+
+}
+
+.panel {
+
+    border: thin solid black;
+}
+
+.panel p {
+
+    padding: 10px;
+    font-size: 22px;
+}
+
+.entry {
+
+    padding: 2%;
+}
+
+
